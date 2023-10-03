@@ -116,95 +116,134 @@ function ProductRegister({}: Props) {
 
   return (
     <>
+      <section className="w-[50%] flex flex-col items-start gap-4 mt-10 mb-10">
+        <h1 className="text-3xl font-bold uppercase drop-shadow-xl">
+          Registrar novo produto
+        </h1>
+        <p className="text-xl font-bold uppercase text-[#FE9022] drop-shadow-xl">
+          Preencha o formulário
+        </p>
+      </section>
+
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-4 items-center justify-center bg-gray-100 px-5 py-2"
+        className="w-[50%] flex flex-col gap-8 items-start justify-center bg-gray-100 py-2"
       >
-        <label htmlFor="title" className="flex items-center gap-3">
-          <span className="font-bold">Título:</span>
+        {/*Input do título do produto*/}
+        <label htmlFor="title" className="w-full border rounded-lg">
           <input
             type="text"
             name="title"
             id="title"
             value={formData.title}
             onChange={handleInputChange}
-            className="border border-gray-400 rounded"
+            className="w-full border-b-[3px] border-gray-400 rounded-lg shadow-xl py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-black ease-in-out duration-500"
+            placeholder="Nome do produto"
           />
         </label>
-        <label htmlFor="description" className="flex items-center gap-3">
-          <span className="font-bold">Descrição:</span>
-          <input
-            type="text"
+        <label htmlFor="description" className="w-full border rounded-lg">
+          <textarea
             name="description"
             id="description"
+            cols="30"
+            rows="5"
             value={formData.description}
             onChange={handleInputChange}
-            className="border border-gray-400 rounded"
-          />
+            className="w-full border-b-[3px] border-gray-400 rounded-lg shadow-xl py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-black ease-in-out duration-500"
+            placeholder="Descrição do produto"
+          ></textarea>
         </label>
-        <label htmlFor="price" className="flex items-center gap-3">
-          <span className="font-bold">Preço:</span>
-          <input
-            type="text"
-            name="price"
-            id="price"
-            value={formData.price}
-            onChange={handleInputChange}
-            className="border border-gray-400 rounded"
-          />
-        </label>
-        <label htmlFor="category" className="flex items-center gap-3">
-          <span className="font-bold">Categoria do produto:</span>
-          <select
-            name="category"
-            id="category"
-            value={formData.category}
-            onChange={handleInputChange}
-          >
-            <option value="">Selecione</option>
-            <option value="madeira1">Madeira 1</option>
-            <option value="madeira2">Madeira 2</option>
-            <option value="madeira3">Madeira 3</option>
-          </select>
-        </label>
-        <label htmlFor="unity" className="flex items-center gap-3">
-          <span className="font-bold">Unidade de medida:</span>
-          <select
-            name="unity"
-            id="unity"
-            value={formData.unity}
-            onChange={handleInputChange}
-          >
-            <option value="">Selecione</option>
-            <option value="m">Metro</option>
-            <option value="m²">Metro quadrado</option>
-            <option value="cm">Centimetro</option>
-          </select>
-        </label>
-        <label htmlFor="isPromotion" className="flex items-center gap-3">
-          <span className="font-bold">É promoção?</span>
-          <input
-            type="checkbox"
-            name="isPromotion"
-            id="isPromotion"
-            checked={formData.isPromotion}
-            onChange={handleInputChange}
-          />
-        </label>
-        {/* Se a promoção estiver marcada, armazene o valor da promoção */}
-        {formData.isPromotion && (
-          <label htmlFor="promoPrice" className="flex items-center gap-3">
-            <span className="font-bold">Valor da promoção:</span>
+
+        <article className="w-full flex flex-row justify-between">
+          <label htmlFor="price" className="flex items-center gap-3">
             <input
               type="text"
-              name="promoPrice"
-              id="promoPrice"
-              value={formData.promoPrice}
+              name="price"
+              id="price"
+              value={formData.price}
               onChange={handleInputChange}
-              className="border border-gray-400 rounded"
+              className="border-b-[3px] border-gray-400 rounded-lg shadow-xl py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-black ease-in-out duration-500"
+              placeholder="Preço"
             />
           </label>
-        )}
+          <label
+            htmlFor="isPromotion"
+            className="flex items-center gap-3 cursor-pointer group"
+          >
+            <input
+              type="checkbox"
+              name="isPromotion"
+              id="isPromotion"
+              checked={formData.isPromotion}
+              onChange={handleInputChange}
+              className="w-[115px] relative h-[50px] rounded-full border-b-[3px] border-gray-400 bg-gray-300 appearance-none shadow-sm ease-in-out duration-500 checked:bg-[#FE9022] checked:border-gray-400 checked:border-transparent"
+            />
+            <span
+              className={`uppercase font-bold absolute pl-3 text-md ${
+                formData.isPromotion ? "text-white" : ""
+              } transition-colors`}
+            >
+              Promoção
+            </span>
+          </label>
+          {/*Se a promoção estiver marcada, exiba o campo de valor da promoção */}
+          {formData.isPromotion ? (
+            <label htmlFor="promoPrice" className="flex items-center gap-3">
+              <input
+                type="text"
+                name="promoPrice"
+                id="promoPrice"
+                value={formData.promoPrice}
+                onChange={handleInputChange}
+                className="border-b-[3px] border-gray-400 rounded-lg shadow-xl py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-black ease-in-out duration-500"
+                placeholder="Preço da promoção"
+              />
+            </label>
+          ) : (
+            <label htmlFor="promoPrice" className="flex items-center gap-3">
+              <input
+                type="text"
+                name="promoPrice"
+                id="promoPrice"
+                value={formData.promoPrice}
+                onChange={handleInputChange}
+                className="bg-gray-300 border-b-[3px] border-gray-400 rounded-lg shadow-xl py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-black ease-in-out duration-500"
+                placeholder="Preço da promoção"
+                disabled
+              />
+            </label>
+          )}
+        </article>
+        <article className="w-full flex flex-row justify-between gap-5">
+          <label htmlFor="category" className="w-full flex items-center">
+            <select
+              name="category"
+              id="category"
+              value={formData.category}
+              onChange={handleInputChange}
+              className="w-full flex items-center gap-3 rounded-lg text-[rgba(0,0,0,0.5)] uppercase shadow-xl py-3 px-1  border-b-[3px] border-gray-400 focus:outline-0 focus:border-black ease-in-out duration-500"
+            >
+              <option value="">Categoria do produto</option>
+              <option value="madeira1">Madeira 1</option>
+              <option value="madeira2">Madeira 2</option>
+              <option value="madeira3">Madeira 3</option>
+            </select>
+          </label>
+          <label htmlFor="unity" className="w-full flex items-center">
+            <select
+              name="unity"
+              id="unity"
+              value={formData.unity}
+              onChange={handleInputChange}
+              className="w-full flex items-center gap-3 rounded-lg text-[rgba(0,0,0,0.5)] uppercase shadow-xl py-3 px-1  border-b-[3px] border-gray-400 focus:outline-0 focus:border-black ease-in-out duration-500"
+            >
+              <option value="">Selecione</option>
+              <option value="m">Metro</option>
+              <option value="m²">Metro quadrado</option>
+              <option value="cm">Centimetro</option>
+            </select>
+          </label>
+        </article>
         <label>
           <span className="font-bold">Imagem</span>
           <input
