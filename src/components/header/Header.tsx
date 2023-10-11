@@ -24,7 +24,7 @@ const logout = () => {
 const Header = () => {
   const { user }: any = React.useContext(UserContext);
 
-  console.log(user);
+  //console.log(user);
   return (
     <nav>
       <ul>
