@@ -6,6 +6,10 @@ import api from "@/services/api";
 
 // Icons
 import { IoTrashBinSharp } from "react-icons/io5";
+import ShowSuccessForm from "../modals/ShowSuccessForm";
+
+// Components
+
 
 // Interface do formulário
 type FormData = {
@@ -91,14 +95,6 @@ function AddProdForm() {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  // Função para converter números com vírgula em números com ponto
-  const convertToDecimal = (value: string) => {
-    if (value === "") return value; // Se for uma string vazia, retorne vazia
-
-    // Substitua todas as vírgulas por pontos
-    return value.replace(",", ".");
   };
 
   // Condição de validação dos inputs
@@ -229,7 +225,7 @@ function AddProdForm() {
               onClick={() => {
                 setShowImageModal(false); // Feche o modal de preview da imagem
               }}
-              className="absolute bottom-[93%] left-[90%] h-[50px] px-4 bg-black text-white text-3xl rounded-[100%] font-bold hover:bg-[#FF6E00] transition-colors ease-in-out duration-500"
+              className="absolute bottom-[93%] max-[420px]:bottom-[95%] left-[90%] max-[420px]:left-[95%] h-[50px] max-[420px]:h-[30px] px-4 max-[420px]:px-2 bg-black text-white text-3xl max-[420px]:text-xl rounded-[100%] font-bold hover:bg-[#FF6E00] transition-colors ease-in-out duration-500"
             >
               X
             </button>
@@ -239,7 +235,7 @@ function AddProdForm() {
             <img
               src={previewImage}
               alt="Preview da imagem"
-              className="w-[250px] object-contain"
+              className="w-[250px] max-[420px]:w-[200px] object-contain"
             />
             <div className="flex items-center justify-center">
               <button
@@ -249,7 +245,7 @@ function AddProdForm() {
                   setShowImageModal(false);
                 }}
               >
-                <IoTrashBinSharp className="text-[60px] text-black hover:text-[#FF6E00] transition-colors ease-in-out duration-500" />
+                <IoTrashBinSharp className="text-[60px] max-[420px]:text-[40px] text-black hover:text-[#FF6E00] transition-colors ease-in-out duration-500" />
               </button>
             </div>
           </div>
@@ -258,28 +254,35 @@ function AddProdForm() {
 
       {/* Se o modal de sucesso estiver visível, mostre-o */}
       {showSuccessModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-white w-1/3 p-4 border rounded-lg shadow-lg">
-            <h2 className="text-xl font-bold mb-2">
-              Dados enviados com sucesso
-            </h2>
-            <button
-              onClick={() => {
-                setShowSuccessModal(false); // Feche o modal de sucesso
-                handleClearForm(); // Limpe os campos do formulário
-              }}
-              className="px-4 py-2 bg-[#FE9022] text-white rounded-md font-semibold hover:bg-[#FF6E00] transition-colors"
-            >
-              OK
-            </button>
-          </div>
-        </div>
+        <ShowSuccessForm setShowSuccessModal={setShowSuccessModal} handleClearForm={handleClearForm} />
       )}
-      
+
       <form
         onSubmit={handleSubmit}
-        className="w-[50%] flex flex-col gap-8 items-start justify-center bg-gray-100 py-4 pb-10"
+        className="w-[50%] max-[1024px]:w-[80%] flex flex-col gap-8 items-start justify-center bg-gray-100 py-4 pb-10"
       >
+        {/*Checkbox de promoção*/}
+        <label
+          htmlFor="isPromotion"
+          className="flex w-full justify-end max-[420px]:justify-center items-center gap-3 cursor-pointer group"
+        >
+          <input
+            type="checkbox"
+            name="isPromotion"
+            id="isPromotion"
+            checked={formData.isPromotion}
+            onChange={handleInputChange}
+            className="w-[115px] relative h-[50px] rounded-full border-b-[3px] border-gray-400 bg-gray-300 appearance-none shadow-[5px_3px_20px_-4px_rgba(0,0,0,0.59)] ease-in-out duration-500 checked:bg-[#FE9022] hover:border-[#FE9022] group-hover:border-[#FE9022] checked:border-transparent"
+          />
+          <span
+            className={`uppercase font-bold absolute text-md h-[50px] pt-3 mr-2 max-[420px]:mr-0 ${
+              formData.isPromotion ? "text-white" : ""
+            } transition-colors`}
+          >
+            Promoção
+          </span>
+        </label>
+
         {/*Input do título do produto*/}
         <label htmlFor="title" className="w-full border rounded-lg">
           <input
@@ -288,11 +291,13 @@ function AddProdForm() {
             id="title"
             value={formData.title}
             onChange={handleInputChange}
-            className={`w-full border-b-[3px] border-gray-400 rounded-lg shadow-xl py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500`}
+            className={`w-full border-b-[3px] border-gray-400 rounded-lg shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500`}
             placeholder="Nome do produto"
             required
           />
         </label>
+
+        {/*Input da descrição do produto*/}
         <label htmlFor="description" className="w-full rounded-lg">
           <textarea
             name="description"
@@ -301,73 +306,57 @@ function AddProdForm() {
             rows="5"
             value={formData.description}
             onChange={handleInputChange}
-            className="w-full border-b-[3px] border-gray-400 rounded-lg shadow-xl py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
+            className="w-full border-b-[3px] border-gray-400 rounded-lg shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
             placeholder="Descrição do produto"
             required
           ></textarea>
         </label>
 
-        <article className="w-full flex flex-row justify-between">
-          <label htmlFor="price" className="flex items-center gap-3">
+        {/*Input do preço do produto*/}
+        <article className="w-full flex flex-row justify-between gap-5">
+          <label htmlFor="price" className="w-full flex items-center">
             <input
               type="text"
               name="price"
               id="price"
               value={formData.price}
               onChange={handleInputChange}
-              className="border-b-[3px] border-gray-400 rounded-lg shadow-xl py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
+              className="w-full flex items-center border-b-[3px] border-gray-400 rounded-lg shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
               placeholder="Preço"
               required
             />
           </label>
-          <label
-            htmlFor="isPromotion"
-            className="flex items-center gap-3 cursor-pointer group"
-          >
-            <input
-              type="checkbox"
-              name="isPromotion"
-              id="isPromotion"
-              checked={formData.isPromotion}
-              onChange={handleInputChange}
-              className="w-[115px] relative h-[50px] rounded-full border-b-[3px] border-gray-400 bg-gray-300 appearance-none shadow-sm ease-in-out duration-500 checked:bg-[#FE9022] hover:border-[#FE9022] group-hover:border-[#FE9022] checked:border-transparent"
-            />
-            <span
-              className={`uppercase font-bold absolute pl-3 text-md h-[50px] pt-3 ${
-                formData.isPromotion ? "text-white" : ""
-              } transition-colors`}
-            >
-              Promoção
-            </span>
-          </label>
+
           {/*Se a promoção estiver marcada, exiba o campo de valor da promoção */}
           {formData.isPromotion ? (
-            <label htmlFor="promoPrice" className="flex items-center gap-3">
+            <label htmlFor="promoPrice" className="w-full flex items-center">
               <input
                 type="text"
                 name="promoPrice"
                 id="promoPrice"
                 value={formData.promoPrice}
                 onChange={handleInputChange}
-                className="border-b-[3px] border-gray-400 rounded-lg shadow-xl py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
+                className="w-full flex items-center border-b-[3px] border-gray-400 rounded-lg shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
                 placeholder="Preço da promoção"
               />
             </label>
           ) : (
-            <label htmlFor="promoPrice" className="flex items-center gap-3">
+            <label htmlFor="promoPrice" className="w-full flex items-center">
               <input
                 type="text"
                 name="promoPrice"
                 id="promoPrice"
                 value={formData.promoPrice}
                 onChange={handleInputChange}
-                className="bg-gray-300 border-b-[3px] border-gray-400 rounded-lg shadow-xl py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
+                className="w-full flex items-center bg-gray-300 border-b-[3px] border-gray-400 rounded-lg shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
                 placeholder="Preço da promoção"
                 disabled
               />
             </label>
           )}
         </article>
+
+        {/*Input da categoria e unidade do produto*/}
         <article className="w-full flex flex-row justify-between gap-5">
           <label htmlFor="category" className="w-full flex items-center">
             <select
@@ -375,7 +364,7 @@ function AddProdForm() {
               id="category"
               value={formData.category}
               onChange={handleInputChange}
-              className="w-full flex items-center gap-3 rounded-lg text-[rgba(0,0,0,0.5)] shadow-xl py-3 px-1 border-b-[3px] border-gray-400 focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
+              className="w-full flex items-center gap-3 rounded-lg text-[rgba(0,0,0,0.5)] shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 border-b-[3px] border-gray-400 focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
               required
             >
               <option value="">Categoria</option>
@@ -390,7 +379,7 @@ function AddProdForm() {
               id="unity"
               value={formData.unity}
               onChange={handleInputChange}
-              className="w-full flex items-center gap-3 rounded-lg text-[rgba(0,0,0,0.5)] shadow-xl py-3 px-1 border-b-[3px] border-gray-400 focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
+              className="w-full flex items-center gap-3 rounded-lg text-[rgba(0,0,0,0.5)] shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 border-b-[3px] border-gray-400 focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
               required
             >
               <option value="">Unidade</option>
@@ -400,6 +389,8 @@ function AddProdForm() {
             </select>
           </label>
         </article>
+
+        {/*Input da imagem*/}
         {!formData.file ? (
           <label className="relative w-full flex flex-row items-center justify-center">
             <input
