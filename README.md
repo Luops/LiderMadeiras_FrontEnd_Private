@@ -46,4 +46,4 @@ Responsividade:
     Mobile landscape: 420px a 600px
     Tablet: 600px a 1024px
     Tablet landscape: 1024px a 1200px
-    Desktop: 1200px
+    Desktop: maior que 1200px

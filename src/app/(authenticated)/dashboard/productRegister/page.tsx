@@ -16,6 +16,7 @@ function ProductRegister() {
         </p>
       </section>
 
+      {/*Formulário */}
       <AddProdForm />
     </>
   );

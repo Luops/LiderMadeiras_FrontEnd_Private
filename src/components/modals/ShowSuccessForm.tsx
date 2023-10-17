@@ -1,7 +1,5 @@
 import React from "react";
 
-type Props = {};
-
 const ShowSuccessForm = ({ setShowSuccessModal, handleClearForm }) => {
   return (
     <>

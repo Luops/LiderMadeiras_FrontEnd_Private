@@ -4,12 +4,12 @@ import React from "react";
 // API
 import api from "@/services/api";
 
-// Icons
-import { IoTrashBinSharp } from "react-icons/io5";
-import ShowSuccessForm from "../modals/ShowSuccessForm";
+// Data
+import { categories, unitys } from "../../app/data/data";
 
 // Components
-
+import ShowSuccessForm from "../modals/ShowSuccessForm";
+import ShowImageForm from "../modals/ShowImageForm";
 
 // Interface do formulário
 type FormData = {
@@ -219,42 +219,19 @@ function AddProdForm() {
     <>
       {/* Se o modal de preview da imagem estiver visível, mostre-o */}
       {showImageModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 shadow-2xl">
-          <div className="relative flex flex-col items-center justify-center bg-white p-4 border rounded-lg shadow-lg gap-3">
-            <button
-              onClick={() => {
-                setShowImageModal(false); // Feche o modal de preview da imagem
-              }}
-              className="absolute bottom-[93%] max-[420px]:bottom-[95%] left-[90%] max-[420px]:left-[95%] h-[50px] max-[420px]:h-[30px] px-4 max-[420px]:px-2 bg-black text-white text-3xl max-[420px]:text-xl rounded-[100%] font-bold hover:bg-[#FF6E00] transition-colors ease-in-out duration-500"
-            >
-              X
-            </button>
-            <h2 className="text-xl font-bold mb-2 uppercase">
-              Preview da Imagem
-            </h2>
-            <img
-              src={previewImage}
-              alt="Preview da imagem"
-              className="w-[250px] max-[420px]:w-[200px] object-contain"
-            />
-            <div className="flex items-center justify-center">
-              <button
-                className=""
-                onClick={() => {
-                  handleClearFile();
-                  setShowImageModal(false);
-                }}
-              >
-                <IoTrashBinSharp className="text-[60px] max-[420px]:text-[40px] text-black hover:text-[#FF6E00] transition-colors ease-in-out duration-500" />
-              </button>
-            </div>
-          </div>
-        </div>
+        <ShowImageForm
+          setShowImageModal={setShowImageModal}
+          handleClearFile={handleClearFile}
+          previewImage={previewImage}
+        />
       )}
 
       {/* Se o modal de sucesso estiver visível, mostre-o */}
       {showSuccessModal && (
-        <ShowSuccessForm setShowSuccessModal={setShowSuccessModal} handleClearForm={handleClearForm} />
+        <ShowSuccessForm
+          setShowSuccessModal={setShowSuccessModal}
+          handleClearForm={handleClearForm}
+        />
       )}
 
       <form
@@ -364,13 +341,15 @@ function AddProdForm() {
               id="category"
               value={formData.category}
               onChange={handleInputChange}
-              className="w-full flex items-center gap-3 rounded-lg text-[rgba(0,0,0,0.5)] shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 border-b-[3px] border-gray-400 focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
+              className="w-full inline flex items-center gap-3 rounded-lg text-[rgba(0,0,0,0.5)] shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 border-b-[3px] border-gray-400 focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
               required
             >
               <option value="">Categoria</option>
-              <option value="madeira1">Madeira 1</option>
-              <option value="madeira2">Madeira 2</option>
-              <option value="madeira3">Madeira 3</option>
+              {categories.map((category: string) => (
+                <option key={category.id} value={category.value}>
+                  {category.name}
+                </option>
+              ))}
             </select>
           </label>
           <label htmlFor="unity" className="w-full flex items-center">
@@ -383,9 +362,11 @@ function AddProdForm() {
               required
             >
               <option value="">Unidade</option>
-              <option value="m">Metro</option>
-              <option value="m²">Metro quadrado</option>
-              <option value="cm">Centimetro</option>
+              {unitys.map((unity: string) => (
+                <option key={unity.id} value={unity.value}>
+                  {unity.name}
+                </option>
+              ))}
             </select>
           </label>
         </article>
@@ -429,7 +410,7 @@ function AddProdForm() {
             type="submit"
             disabled={isLoading} // Se estiver carregando, desabilite o botão
             onClick={() => setSubmitAttempted(true)}
-            className="w-[125px] text-xl text-center text-white self-center font-bold shadow-2xl border-b-[3px] border-[#877b70] bg-[#FE9022] py-[4px] rounded-sm hover:bg-[#fe9022bb] transition-colors ease-in-out duration-500"
+            className="w-[125px] max-[420px]:w-[100px] text-xl max-[420px]:text-sm text-center text-white self-center font-bold shadow-2xl border-b-[3px] border-[#877b70] bg-[#FE9022] py-[4px] rounded-sm hover:bg-[#fe9022bb] transition-colors ease-in-out duration-500"
           >
             Enviar
           </button>

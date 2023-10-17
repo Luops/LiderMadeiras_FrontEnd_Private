@@ -1,10 +1,18 @@
 import React from 'react'
 
+// Components
+import Aside from '@/components/aside/Aside'
+
 type Props = {}
 
 function Dashboard({}: Props) {
   return (
-    <div>Dashboard</div>
+    <>
+      <main className='w-full h-full'>
+        <Aside />
+      </main>
+    </>
+    
   )
 }
 
