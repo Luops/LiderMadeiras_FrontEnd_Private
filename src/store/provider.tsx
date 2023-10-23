@@ -4,11 +4,16 @@ import * as React from "react";
 import { parseCookies } from "nookies";
 import { useRouter } from "next/navigation";
 
+// Model
 import { User } from "@/models/User";
+import { Product } from "@/models/Product";
 
 import { store } from "./store";
 import { Provider } from "react-redux";
+
+// Services
 import { getUser } from "@/services/get-users";
+import { getProducts } from "@/services/get-products";
 
 const UserContext = React.createContext(null);
 
@@ -39,6 +44,7 @@ export async function getStaticProps() {
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [user, setUser] = React.useState<User | null>(null);
+  const [products, setProducts] = React.useState<Product[]>([]);
   const router = useRouter();
   const cookies = parseCookies();
 
@@ -68,8 +74,24 @@ export function Providers({ children }: { children: React.ReactNode }) {
     fetchUser();
   }, []);
 
+  // Buscar produtos
+  React.useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const productsData = await getProducts(); // Use a função getProducts para buscar os produtos
+
+        if (productsData) {
+          setProducts(productsData); // Atualize o estado dos produtos com os dados obtidos
+        }
+      } catch (error) {
+        console.error("Erro ao buscar produtos:", error);
+      }
+    }
+    fetchProducts();
+  }, []);
+
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, products }}>
       <Provider store={store}>{children}</Provider>
     </UserContext.Provider>
   );

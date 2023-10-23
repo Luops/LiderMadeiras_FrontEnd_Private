@@ -234,195 +234,205 @@ function AddProdForm() {
         />
       )}
 
-      <form
-        onSubmit={handleSubmit}
-        className="w-[50%] max-[1024px]:w-[80%] flex flex-col gap-8 items-start justify-center bg-gray-100 py-4 pb-10"
-      >
-        {/*Checkbox de promoção*/}
-        <label
-          htmlFor="isPromotion"
-          className="flex w-full justify-end max-[420px]:justify-center items-center gap-3 cursor-pointer group"
+      <section className="w-full flex flex-col items-center">
+        <article className="w-[50%] max-[1024px]:w-[80%] max-[1024px]:ml-[30%] max-[855px]:ml-[0] flex flex-col items-start gap-4 mt-10 mb-10">
+          <h2 className="text-6xl max-[420px]:text-4xl font-bold uppercase drop-shadow-xl">
+            Registrar novo produto
+          </h2>
+          <p className="text-xl max-[420px]:text-sm font-bold uppercase text-[#FE9022] drop-shadow-xl">
+            Preencha o formulário
+          </p>
+        </article>
+        <form
+          onSubmit={handleSubmit}
+          className="w-[50%] max-[855px]:w-[80%] flex flex-col gap-8 items-start justify-center py-4 pb-10"
         >
-          <input
-            type="checkbox"
-            name="isPromotion"
-            id="isPromotion"
-            checked={formData.isPromotion}
-            onChange={handleInputChange}
-            className="w-[115px] relative h-[50px] rounded-full border-b-[3px] border-gray-400 bg-gray-300 appearance-none shadow-[5px_3px_20px_-4px_rgba(0,0,0,0.59)] ease-in-out duration-500 checked:bg-[#FE9022] hover:border-[#FE9022] group-hover:border-[#FE9022] checked:border-transparent"
-          />
-          <span
-            className={`uppercase font-bold absolute text-md h-[50px] pt-3 mr-2 max-[420px]:mr-0 ${
-              formData.isPromotion ? "text-white" : ""
-            } transition-colors`}
+          {/*Checkbox de promoção*/}
+          <label
+            htmlFor="isPromotion"
+            className="flex w-full justify-end max-[420px]:justify-center items-center gap-3 cursor-pointer group"
           >
-            Promoção
-          </span>
-        </label>
+            <input
+              type="checkbox"
+              name="isPromotion"
+              id="isPromotion"
+              checked={formData.isPromotion}
+              onChange={handleInputChange}
+              className="w-[115px] relative h-[50px] rounded-full border-b-[3px] border-gray-400 bg-gray-300 appearance-none shadow-[5px_3px_20px_-4px_rgba(0,0,0,0.59)] ease-in-out duration-500 checked:bg-[#FE9022] hover:border-[#FE9022] group-hover:border-[#FE9022] checked:border-transparent"
+            />
+            <span
+              className={`uppercase font-bold absolute text-md h-[50px] pt-3 mr-2 max-[420px]:mr-0 ${
+                formData.isPromotion ? "text-white" : ""
+              } transition-colors`}
+            >
+              Promoção
+            </span>
+          </label>
 
-        {/*Input do título do produto*/}
-        <label htmlFor="title" className="w-full border rounded-lg">
-          <input
-            type="text"
-            name="title"
-            id="title"
-            value={formData.title}
-            onChange={handleInputChange}
-            className={`w-full border-b-[3px] border-gray-400 rounded-lg shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500`}
-            placeholder="Nome do produto"
-            required
-          />
-        </label>
-
-        {/*Input da descrição do produto*/}
-        <label htmlFor="description" className="w-full rounded-lg">
-          <textarea
-            name="description"
-            id="description"
-            cols="30"
-            rows="5"
-            value={formData.description}
-            onChange={handleInputChange}
-            className="w-full border-b-[3px] border-gray-400 rounded-lg shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
-            placeholder="Descrição do produto"
-            required
-          ></textarea>
-        </label>
-
-        {/*Input do preço do produto*/}
-        <article className="w-full flex flex-row justify-between gap-5">
-          <label htmlFor="price" className="w-full flex items-center">
+          {/*Input do título do produto*/}
+          <label htmlFor="title" className="w-full border rounded-lg">
             <input
               type="text"
-              name="price"
-              id="price"
-              value={formData.price}
+              name="title"
+              id="title"
+              value={formData.title}
               onChange={handleInputChange}
-              className="w-full flex items-center border-b-[3px] border-gray-400 rounded-lg shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
-              placeholder="Preço"
+              className={`w-full border-b-[3px] border-gray-400 rounded-lg shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500`}
+              placeholder="Nome do produto"
               required
             />
           </label>
 
-          {/*Se a promoção estiver marcada, exiba o campo de valor da promoção */}
-          {formData.isPromotion ? (
-            <label htmlFor="promoPrice" className="w-full flex items-center">
+          {/*Input da descrição do produto*/}
+          <label htmlFor="description" className="w-full rounded-lg">
+            <textarea
+              name="description"
+              id="description"
+              cols="30"
+              rows="5"
+              value={formData.description}
+              onChange={handleInputChange}
+              className="w-full border-b-[3px] border-gray-400 rounded-lg shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
+              placeholder="Descrição do produto"
+              required
+            ></textarea>
+          </label>
+
+          {/*Input do preço do produto*/}
+          <article className="w-full flex flex-row justify-between gap-5">
+            <label htmlFor="price" className="w-full flex items-center">
               <input
                 type="text"
-                name="promoPrice"
-                id="promoPrice"
-                value={formData.promoPrice}
+                name="price"
+                id="price"
+                value={formData.price}
                 onChange={handleInputChange}
                 className="w-full flex items-center border-b-[3px] border-gray-400 rounded-lg shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
-                placeholder="Preço da promoção"
+                placeholder="Preço"
+                required
               />
+            </label>
+
+            {/*Se a promoção estiver marcada, exiba o campo de valor da promoção */}
+            {formData.isPromotion ? (
+              <label htmlFor="promoPrice" className="w-full flex items-center">
+                <input
+                  type="text"
+                  name="promoPrice"
+                  id="promoPrice"
+                  value={formData.promoPrice}
+                  onChange={handleInputChange}
+                  className="w-full flex items-center border-b-[3px] border-gray-400 rounded-lg shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
+                  placeholder="Preço da promoção"
+                />
+              </label>
+            ) : (
+              <label htmlFor="promoPrice" className="w-full flex items-center">
+                <input
+                  type="text"
+                  name="promoPrice"
+                  id="promoPrice"
+                  value={formData.promoPrice}
+                  onChange={handleInputChange}
+                  className="w-full flex items-center bg-gray-300 border-b-[3px] border-gray-400 rounded-lg shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
+                  placeholder="Preço da promoção"
+                  disabled
+                />
+              </label>
+            )}
+          </article>
+
+          {/*Input da categoria e unidade do produto*/}
+          <article className="w-full flex flex-row justify-between gap-5">
+            <label htmlFor="category" className="w-full flex items-center">
+              <select
+                name="category"
+                id="category"
+                value={formData.category}
+                onChange={handleInputChange}
+                className="w-full inline flex items-center gap-3 rounded-lg text-[rgba(0,0,0,0.5)] shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 border-b-[3px] border-gray-400 focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
+                required
+              >
+                <option value="">Categoria</option>
+                {categories.map((category: string) => (
+                  <option key={category.id} value={category.value}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label htmlFor="unity" className="w-full flex items-center">
+              <select
+                name="unity"
+                id="unity"
+                value={formData.unity}
+                onChange={handleInputChange}
+                className="w-full flex items-center gap-3 rounded-lg text-[rgba(0,0,0,0.5)] shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 border-b-[3px] border-gray-400 focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
+                required
+              >
+                <option value="">Unidade</option>
+                {unitys.map((unity: string) => (
+                  <option key={unity.id} value={unity.value}>
+                    {unity.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </article>
+
+          {/*Input da imagem*/}
+          {!formData.file ? (
+            <label className="relative w-full flex flex-row items-center justify-center">
+              <input
+                type="file"
+                name="file"
+                id="file"
+                ref={fileInputRef}
+                onChange={handleInputChange}
+                className="absolute w-full h-[50px] opacity-0"
+                required
+              />
+              <p className="relative w-full flex items-center justify-center rounded-lg bg-[#fe902260] text-[#FE9022] z-10 uppercase font-bold h-[50px] cursor-pointer border border-dashed border-[#FE9022]">
+                Anexar imagem
+              </p>
             </label>
           ) : (
-            <label htmlFor="promoPrice" className="w-full flex items-center">
-              <input
-                type="text"
-                name="promoPrice"
-                id="promoPrice"
-                value={formData.promoPrice}
-                onChange={handleInputChange}
-                className="w-full flex items-center bg-gray-300 border-b-[3px] border-gray-400 rounded-lg shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
-                placeholder="Preço da promoção"
-                disabled
-              />
-            </label>
+            <div className="relative w-full flex flex-row items-center justify-center">
+              <button
+                onClick={handleShowImageModal}
+                className="w-full h-[50px] rounded-lg bg-[#48942c75] text-[#48942c] uppercase font-bold cursor-pointer border border-dashed border-[#48942c] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
+              >
+                Visualizar imagem
+              </button>
+            </div>
           )}
-        </article>
 
-        {/*Input da categoria e unidade do produto*/}
-        <article className="w-full flex flex-row justify-between gap-5">
-          <label htmlFor="category" className="w-full flex items-center">
-            <select
-              name="category"
-              id="category"
-              value={formData.category}
-              onChange={handleInputChange}
-              className="w-full inline flex items-center gap-3 rounded-lg text-[rgba(0,0,0,0.5)] shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 border-b-[3px] border-gray-400 focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
-              required
-            >
-              <option value="">Categoria</option>
-              {categories.map((category: string) => (
-                <option key={category.id} value={category.value}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label htmlFor="unity" className="w-full flex items-center">
-            <select
-              name="unity"
-              id="unity"
-              value={formData.unity}
-              onChange={handleInputChange}
-              className="w-full flex items-center gap-3 rounded-lg text-[rgba(0,0,0,0.5)] shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 border-b-[3px] border-gray-400 focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
-              required
-            >
-              <option value="">Unidade</option>
-              {unitys.map((unity: string) => (
-                <option key={unity.id} value={unity.value}>
-                  {unity.name}
-                </option>
-              ))}
-            </select>
-          </label>
-        </article>
-
-        {/*Input da imagem*/}
-        {!formData.file ? (
-          <label className="relative w-full flex flex-row items-center justify-center">
-            <input
-              type="file"
-              name="file"
-              id="file"
-              ref={fileInputRef}
-              onChange={handleInputChange}
-              className="absolute w-full h-[50px] opacity-0"
-              required
-            />
-            <p className="relative w-full flex items-center justify-center rounded-lg bg-[#fe902260] text-[#FE9022] z-10 uppercase font-bold h-[50px] cursor-pointer border border-dashed border-[#FE9022]">
-              Anexar imagem
-            </p>
-          </label>
-        ) : (
-          <div className="relative w-full flex flex-row items-center justify-center">
+          {/* Se estiver carregando, exiba um texto indicando que está enviando */}
+          {isLoading ? (
+            <>
+              <h3 className="w-[125px] text-md text-center self-center font-bold text-[#48942c] bg-[#48942c75] shadow-2xl py-1 rounded-sm transition-colors ease-in-out duration-500">
+                Enviando...
+              </h3>
+            </>
+          ) : (
             <button
-              onClick={handleShowImageModal}
-              className="w-full h-[50px] rounded-lg bg-[#48942c75] text-[#48942c] uppercase font-bold cursor-pointer border border-dashed border-[#48942c] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
+              type="submit"
+              disabled={isLoading} // Se estiver carregando, desabilite o botão
+              onClick={() => setSubmitAttempted(true)}
+              className="w-[125px] max-[420px]:w-[100px] text-xl max-[420px]:text-sm text-center text-white self-center font-bold shadow-2xl border-b-[3px] border-[#877b70] bg-[#FE9022] py-[4px] rounded-sm hover:bg-[#fe9022bb] transition-colors ease-in-out duration-500"
             >
-              Visualizar imagem
+              Enviar
             </button>
-          </div>
-        )}
+          )}
 
-        {/* Se estiver carregando, exiba um texto indicando que está enviando */}
-        {isLoading ? (
-          <>
-            <h3 className="w-[125px] text-md text-center self-center font-bold text-[#48942c] bg-[#48942c75] shadow-2xl py-1 rounded-sm transition-colors ease-in-out duration-500">
-              Enviando...
-            </h3>
-          </>
-        ) : (
-          <button
-            type="submit"
-            disabled={isLoading} // Se estiver carregando, desabilite o botão
-            onClick={() => setSubmitAttempted(true)}
-            className="w-[125px] max-[420px]:w-[100px] text-xl max-[420px]:text-sm text-center text-white self-center font-bold shadow-2xl border-b-[3px] border-[#877b70] bg-[#FE9022] py-[4px] rounded-sm hover:bg-[#fe9022bb] transition-colors ease-in-out duration-500"
-          >
-            Enviar
-          </button>
-        )}
-
-        {/* Renderize uma mensagem de erro, se houver algum erro */}
-        {error && (
-          <h2 className="w-full bg-red-200 text-2xl flex items-center justify-center text-center font-bold uppercase drop-shadow-3xl text-red-500 mb-10 py-4 px-1 rounded-lg">
-            {error}
-          </h2>
-        )}
-      </form>
+          {/* Renderize uma mensagem de erro, se houver algum erro */}
+          {error && (
+            <h2 className="w-full bg-red-200 text-2xl flex items-center justify-center text-center font-bold uppercase drop-shadow-3xl text-red-500 mb-10 py-4 px-1 rounded-lg">
+              {error}
+            </h2>
+          )}
+        </form>
+      </section>
     </>
   );
 }
