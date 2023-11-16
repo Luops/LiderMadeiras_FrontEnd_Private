@@ -3,10 +3,35 @@ import React from "react";
 // Icons
 import { IoTrashBinSharp } from "react-icons/io5";
 
-const ShowImageForm = ({setShowImageModal, previewImage, handleClearFile}) => {
+// API
+import { deleteImage } from "../../services/delete-product";
+
+// Components
+import ShowFormEdit from "./ShowFormEdit";
+
+// Interface do formulário
+type Product = {
+  _id: string;
+  title: string;
+  description: string;
+  price: string;
+  category: string;
+  unity: string;
+  isPromotion: boolean;
+  promoPrice: string;
+  url: string;
+  file: File | null;
+};
+
+const ShowImageForm = ({
+  setShowImageModal,
+  previewImage,
+  handleClearFile,
+  _id,
+}) => {
   return (
     <>
-      <div className="fixed inset-0 flex items-center justify-center z-50 shadow-2xl">
+      <div className="fixed inset-0 flex items-center justify-center z-[51] shadow-2xl">
         <div className="relative flex flex-col items-center justify-center bg-white p-4 border rounded-lg shadow-lg gap-3">
           <button
             onClick={() => {

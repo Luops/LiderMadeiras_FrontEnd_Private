@@ -2,7 +2,7 @@
 import React from "react";
 
 // Components
-import Aside from "@/components/aside/Aside";
+import AsideDash from "@/components/aside/AsideDash";
 import ListProducts from "../../../components/listProducts/ListProducts";
 import AddProdForm from "../../../components/addProdForm/AddProdForm";
 
@@ -24,7 +24,7 @@ function Dashboard() {
   return (
     <>
       <main className="w-full h-screen flex">
-        <Aside setActiveSection={setActiveSection} />
+        <AsideDash setActiveSection={setActiveSection} />
         <article className="flex-1 flex flex-col items-center">
           {/* Conteudo da pagina */}
           {renderSection()}

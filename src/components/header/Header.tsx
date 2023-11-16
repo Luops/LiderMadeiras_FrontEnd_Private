@@ -22,11 +22,41 @@ const logout = () => {
 };
 
 const Header = () => {
+  // Dados do usuário
   const { user }: any = React.useContext(UserContext);
+
+  // State para verificar se foi utilizado o scroll
+  const [isScrolled, setIsScrolled] = React.useState(false);
+
+  // Verificar se foi utilizado o scroll e mudar o state
+  const handleScroll = () => {
+    const offset = window.scrollY;
+    if (offset > 15) {
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+  };
+
+  // Acompanhar o scroll
+  React.useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  console.log(isScrolled);
 
   //console.log(user);
   return (
-    <nav>
+    <nav
+      className={
+        isScrolled
+          ? "sticky top-0 border-b shadow-[0px_0px_9px_1px_#1b191929] bg-white z-[41] flex items-center justify-evenly center py-[25px] px-[35px]"
+          : "flex items-center justify-evenly py-[25px] px-[35px]"
+      }
+    >
       <ul>
         <li>
           <Link href="/">Home</Link>

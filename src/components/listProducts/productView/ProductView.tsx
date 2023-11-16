@@ -1,7 +1,12 @@
 import React from "react";
 
+// Provider
+import UserContext from "@/store/provider";
+
 // Components
 import ShowAlertDelete from "@/components/modals/ShowAlertDelete";
+import ShowFormEdit from "@/components/modals/ShowFormEdit";
+import ShowProductDetails from "@/components/modals/ShowProductDetails";
 
 // Icons
 import { IoTrashBinSharp, IoPencil } from "react-icons/io5";
@@ -16,6 +21,8 @@ type Product = {
   isPromotion: boolean;
   promoPrice: string;
   url: string;
+  file: File | null;
+  setShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 // Formato do preço normal
@@ -70,6 +77,8 @@ function capitalizeAfterPeriod(text) {
     (match) => `. ${match.charAt(2).toUpperCase()}`
   );
 }
+
+// Transforma o primeiro caractere de uma string em maiúsculo após um ponto
 function formatDescription(text) {
   const firstUpperCase = capitalizeFirstLetter(text);
   const result = capitalizeAfterPeriod(firstUpperCase);
@@ -86,9 +95,33 @@ function ProductView({
   isPromotion,
   promoPrice,
   url,
+  file,
+  setShowDetails,
 }: Product) {
+  // Buscar os dados do produto no contexto
+  const { products }: any = React.useContext(UserContext);
+
   // State do modal de apagar
   const [showDeleteModal, setShowDeleteModal] = React.useState(false);
+
+  // State da edição
+  const [editingProduct, setEditingProduct] = React.useState<false | Product>(
+    false
+  ); // Estado para rastrear o produto em edição
+
+  // State de carregamento
+  const [isLoading, setIsLoading] = React.useState(false);
+  const loading = () => {
+    if (
+      url == "Carregando..." &&
+      title == "Carregando..." &&
+      description == "Carregando..."
+    ) {
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+    }
+  };
 
   // Formate o preço
   const formattedPrice = formatProductPrice(price);
@@ -102,17 +135,60 @@ function ProductView({
 
   // Corte o título se ele exceder o limite e transforme a primeira letra maiuscula
   const truncatedTitle =
-    title.length > maxTitleLength
+    title && title.length > maxTitleLength
       ? `${capitalizeFirstLetter(title.slice(0, maxTitleLength))}...`
-      : capitalizeFirstLetter(title);
+      : title && capitalizeFirstLetter(title);
 
   // Corte a descrição se ela exceder o limite e transforme a primeira letra maiuscula + primeira letra após ponto
   const truncatedDescription =
-    description.length > maxDescriptionLength
+    description && description.length > maxDescriptionLength
       ? `${formatDescription(description.slice(0, maxDescriptionLength))}...`
-      : formatDescription(description);
+      : description && formatDescription(description);
 
-  console.log(_id);
+  // Função para abrir o modal de editar com as informações do produto (_id)
+  const handleEditClick = () => {
+    // Ao clicar em "Editar", defina o produto em edição
+    setEditingProduct({
+      _id,
+      title,
+      description,
+      price,
+      category,
+      unity,
+      isPromotion,
+      promoPrice,
+      url,
+      file,
+    });
+  };
+
+  // Função para recarregar a página
+  React.useEffect(() => {
+    let unLoadTimeout: NodeJS.Timeout;
+
+    window.addEventListener("beforeunload", () => {
+      // Exibir a tela de carregamento com um pequeno atraso
+      setIsLoading(true);
+      unLoadTimeout = setTimeout(() => {
+        setIsLoading(false);
+      }, 30000); // Tempo em milissegundos
+    });
+
+    window.addEventListener("load", () => {
+      clearTimeout(unLoadTimeout); // Limpar o timeout se a página for carregada antes do tempo
+      setIsLoading(false);
+    });
+
+    return () => {
+      window.removeEventListener("beforeunload", () => {
+        setIsLoading(true);
+      });
+
+      window.removeEventListener("load", () => {
+        setIsLoading(false);
+      });
+    };
+  }, []);
 
   return (
     <>
@@ -123,60 +199,136 @@ function ProductView({
           _id={_id}
         />
       )}
-      <article className="flex flex-col text-start py-1 mx-2 gap-3 border-b border-[#fe902273] !h-[130px]">
+      {editingProduct && (
+        <ShowFormEdit
+          {...editingProduct}
+          _id={_id}
+          setEditingProduct={setEditingProduct}
+        />
+      )}
+      <article
+        className={`flex flex-col text-start py-1 mx-2 gap-3 border-b border-[#fe902273] !h-[130px] max-[620px]:!h-[150px] `}
+      >
         <div className="flex gap-2 justify-between">
           <div className="flex gap-2">
-            <img
-              src={url}
-              alt={title}
-              className="h-[70px] aspect-square bg-contain bg-center shadow-[5px_3px_20px_-4px_rgba(0,0,0,0.59)] rounded-lg"
-            />
-            <div className="max-w-[250px]">
-              <h3 className="text-md font-bold line-clamp-1">
-                {truncatedTitle}
-              </h3>
-              <p className="text-sm text-justify text-[#666666] overflow-hidden break-words line-clamp-2">
-                {truncatedDescription}
-              </p>
+            {url == "Carregando..." ? (
+              <p className="bg-gray-400 animate-pulse h-[70px] w-[70px] border border-[#9c9c9c73] shadow-[5px_3px_20px_-4px_rgba(0, 0, 0, 0.28)]"></p>
+            ) : (
+              <img
+                src={url}
+                alt={title}
+                className="h-[70px] aspect-square bg-contain bg-center shadow-[5px_3px_20px_-4px_rgba(0,0,0,0.59)] rounded-lg"
+              />
+            )}
+
+            <div className="flex flex-col max-w-[250px] gap-1">
+              {title == "Carregando..." ? (
+                <h3 className="bg-gray-400 animate-pulse h-[20px] w-[150px] border border-[#9c9c9c73] shadow-[5px_3px_20px_-4px_rgba(0, 0, 0, 0.28)]"></h3>
+              ) : (
+                <h3 className="text-md font-bold line-clamp-1">
+                  {truncatedTitle}
+                </h3>
+              )}
+              {description == "Carregando..." ? (
+                <p className="bg-gray-400 animate-pulse h-[20px] w-[180px] border border-[#9c9c9c73] shadow-[5px_3px_20px_-4px_rgba(0, 0, 0, 0.28)]"></p>
+              ) : (
+                <p className="text-sm text-justify text-[#666666] overflow-hidden break-words line-clamp-2">
+                  {truncatedDescription}
+                </p>
+              )}
             </div>
           </div>
           {isPromotion && (
-            <div className="pr-5">
-              <p className="text-xl font-bold text-end">
-                R$ {formattedPromoPrice}
-              </p>
-              <p className="text-md">R$ {formattedPrice}</p>
+            <div className="flex flex-col gap-1 pr-5">
+              {price == "Carregando..." ? (
+                <p className="bg-gray-400 animate-pulse h-[40px] w-[100px] border border-[#9c9c9c73] shadow-[5px_3px_20px_-4px_rgba(0, 0, 0, 0.28)]"></p>
+              ) : (
+                <p className="max-[620px]:hidden font-bold text-lg">
+                  R$ {formattedPromoPrice}
+                </p>
+              )}
+              {price == "Carregando..." ? (
+                <p className="bg-gray-400 animate-pulse h-[40px] w-[100px] border border-[#9c9c9c73] shadow-[5px_3px_20px_-4px_rgba(0, 0, 0, 0.28)]"></p>
+              ) : (
+                <p className="max-[620px]:hidden text-md">
+                  R$ {formattedPrice}
+                </p>
+              )}
             </div>
           )}
           {!isPromotion && (
-            <p className="text-xl font-bold pr-5 text-end">
-              R$ {formattedPrice}
-            </p>
+            <>
+              {price == "Carregando..." ? (
+                <p className="bg-gray-400 animate-pulse h-[40px] w-[100px] border border-[#9c9c9c73] shadow-[5px_3px_20px_-4px_rgba(0, 0, 0, 0.28)]"></p>
+              ) : (
+                <p className="font-bold text-lg max-[620px]:hidden">
+                  R$ {formattedPrice}
+                </p>
+              )}
+            </>
           )}
         </div>
         {/*Botões de ação*/}
-        <div className="flex justify-between">
-          {/*Editar e Excluir */}
-          <div className="flex gap-5 h-[100%] text-center justify-center">
-            <button onClick={() => setShowDeleteModal(true)}>
-              <div className="bg-white p-2 rounded-full shadow-[0px_0px_9px_1px_#1b191929]">
-                <IoTrashBinSharp className="text-[20px] text-black hover:text-[#FF6E00] transition-colors ease-in-out duration-500" />
+        {title == "Carregando..." &&
+        description == "Carregando..." &&
+        price == "Carregando..." ? (
+          <div className="bg-gray-400 animate-pulse h-[40px] w-[100%] border border-[#9c9c9c73] shadow-[5px_3px_20px_-4px_rgba(0, 0, 0, 0.28)]"></div>
+        ) : (
+          <div className="flex justify-between">
+            {/*Editar e Excluir */}
+            <div className="flex gap-5 h-[100%] text-center justify-center">
+              <button onClick={() => setShowDeleteModal(true)}>
+                <div className="group bg-white p-2 rounded-full shadow-[0px_0px_9px_1px_#1b191929]">
+                  <IoTrashBinSharp className="text-[20px] text-black group-hover:text-[#FF6E00] transition-colors ease-in-out duration-500" />
+                </div>
+              </button>
+              <button onClick={handleEditClick}>
+                <div className="group bg-white p-2 rounded-full shadow-[0px_0px_9px_1px_#1b191929]">
+                  <IoPencil className="text-[20px] text-black group-hover:text-[#FF6E00] transition-colors ease-in-out duration-500" />
+                </div>
+              </button>
+            </div>
+            {/*Preço (resolução menor de 621px de largura) */}
+            {isPromotion && (
+              <div className="flex flex-col gap-1 pr-5">
+                {price == "Carregando..." ? (
+                  <p className="bg-gray-400 animate-pulse h-[40px] w-[100px] border border-[#9c9c9c73] shadow-[5px_3px_20px_-4px_rgba(0, 0, 0, 0.28)]"></p>
+                ) : (
+                  <p className="min-[621px]:hidden font-bold text-lg">
+                    R$ {formattedPromoPrice}
+                  </p>
+                )}
+                {price == "Carregando..." ? (
+                  <p className="bg-gray-400 animate-pulse h-[40px] w-[100px] border border-[#9c9c9c73] shadow-[5px_3px_20px_-4px_rgba(0, 0, 0, 0.28)]"></p>
+                ) : (
+                  <p className="min-[621px]:hidden text-md">
+                    R$ {formattedPrice}
+                  </p>
+                )}
               </div>
-            </button>
-            <button onClick={() => alert("Editar")}>
-              <div className="bg-white p-2 rounded-full shadow-[0px_0px_9px_1px_#1b191929]">
-                <IoPencil className="text-[20px] text-black hover:text-[#FF6E00] transition-colors ease-in-out duration-500" />
-              </div>
+            )}
+            {!isPromotion && (
+              <>
+                {price == "Carregando..." ? (
+                  <p className="bg-gray-400 animate-pulse h-[40px] w-[100px] border border-[#9c9c9c73] shadow-[5px_3px_20px_-4px_rgba(0, 0, 0, 0.28)]"></p>
+                ) : (
+                  <p className="font-bold text-lg min-[621px]:hidden">
+                    R$ {formattedPrice}
+                  </p>
+                )}
+              </>
+            )}
+            {/*Ver produto*/}
+            <button
+              className="text-lg font-semibold h-[35px] bg-white px-3 rounded hover:bg-[#FF6E00] hover:text-white transition-colors ease-in-out duration-500 shadow-[0px_0px_9px_1px_#1b191929]"
+              onClick={() => {
+                setShowDetails(true);
+              }}
+            >
+              Ver
             </button>
           </div>
-          {/*Ver produto*/}
-          <button
-            className="text-lg font-semibold bg-white px-3 rounded hover:bg-[#FF6E00] hover:text-white transition-colors ease-in-out duration-500 shadow-[0px_0px_9px_1px_#1b191929]"
-            onClick={() => alert("Ver")}
-          >
-            Ver
-          </button>
-        </div>
+        )}
       </article>
     </>
   );
