@@ -8,9 +8,6 @@ import ProductView from "./productView/ProductView";
 import ShowProductDetails from "../modals/ShowProductDetails";
 import ShowFormEdit from "@/components/modals/ShowFormEdit";
 
-// Redux
-import { useSelector, useDispatch } from "react-redux";
-
 type Product = {
   _id: string;
   title: string;

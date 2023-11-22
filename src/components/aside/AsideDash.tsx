@@ -1,6 +1,9 @@
 "use client";
 import React from "react";
 
+// Component
+import ShowProductDetails from "../modals/ShowProductDetails";
+
 // Icons
 import { MdArrowForwardIos } from "react-icons/md";
 import { MdArrowBackIos } from "react-icons/md";
@@ -18,7 +21,7 @@ const AsideDash = ({ setActiveSection }) => {
   // Observar a resolução do dispositivo e deixar o estado do aside como true acima de 874px
   React.useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth > 874) {
+      if (window.innerWidth > 1022) {
         setShowAside(true);
       } else {
         setShowAside(false);
@@ -39,7 +42,7 @@ const AsideDash = ({ setActiveSection }) => {
     <>
       {/* Botão para mostrar/esconder o aside em resoluções menores que 874px */}
       <button
-        className={`fixed flex items-center justify-center lg:hidden h-[50px] z-[51] py-2 px-3 text-white min-[875px]:hidden bg-gradient-to-r from-[#FE9022] to-orange-500 rounded-md border shadow-[0px_0px_9px_1px_#1b191929]`}
+        className={`fixed flex items-center justify-center lg:hidden h-[50px] z-[51] py-2 px-3 min-[1022px]:hidden text-white bg-gradient-to-r from-[#FE9022] to-orange-500 rounded-md border shadow-[0px_0px_9px_1px_#1b191929]`}
         onClick={toggleAside}
         style={{
           left: showAside ? "170px" : 0,
@@ -65,7 +68,7 @@ const AsideDash = ({ setActiveSection }) => {
 
       <aside
         ref={asideRef}
-        className={`fixed z-50 bg-white flex flex-col max-w-[250px] min-w-[180px] h-full sm:w-[150px] border-r-[1px] ${
+        className={`fixed mt-[-1px] z-50 bg-white flex flex-col max-w-[250px] min-w-[180px] h-full sm:w-[150px] border-r-[1px] ${
           showAside ? "translate-x-0" : "-translate-x-full"
         }`}
         style={{

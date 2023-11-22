@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <Head />
-      <body className="flex flex-col items-center justify-center bg-[#ffffff] font-mont">
+      <body className="flex flex-col items-center justify-center bg-gradient-to-r from-[#fe902203] to-orange-50 font-mont">
         <Providers>
           <Header />
           {children}

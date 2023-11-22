@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 
+// Next components
 import Link from "next/link";
 
 // Icons
@@ -65,7 +66,12 @@ const ShowProductDetails = ({
 
   // Função para formatar o preço
   const formatPrice = (price: number) => {
-    let formattedPrice = price.toFixed(2); // Converte o número para uma string com duas casas decimais
+    // Verificar se price é um número
+    if (typeof price !== "number" || isNaN(price)) {
+      return "0,00"; // ou outro valor padrão que você queira retornar se price não for um número
+    }
+    // Converte o número para uma string com duas casas decimais
+    let formattedPrice = price.toFixed(2);
 
     // Substitui o ponto por vírgula
     formattedPrice = formattedPrice.replace(".", ",");
@@ -84,7 +90,12 @@ const ShowProductDetails = ({
 
   // Função para formatar o preço da promocão
   const formatPromoPrice = (promoPrice: number) => {
-    let formattedPromoPrice = promoPrice.toFixed(2); // Converte o número para uma string com duas casas decimais
+    // Verificar se price é um número
+    if (typeof promoPrice !== "number" || isNaN(promoPrice)) {
+      return "0,00"; // ou outro valor padrão que você queira retornar se price não for um número
+    }
+    // Converte o número para uma string com duas casas decimais
+    let formattedPromoPrice = promoPrice.toFixed(2);
 
     // Substitui o ponto por vírgula
     formattedPromoPrice = formattedPromoPrice.replace(".", ",");
@@ -107,79 +118,81 @@ const ShowProductDetails = ({
 
   return (
     <>
-      <article className="fixed w-[750px] max-[820px]:w-[600px] max-[680px]:w-[400px] max-[480px]:w-[320px] h-[650px] flex flex-col items-start justify-start text-start z-40 mt-5 bg-white rounded-[15px_15px_15px_15px] drop-shadow-xl border-[0.5px] border-neutral-200 ">
-        {/*Botão para fechar o modal*/}
-        <button
-          onClick={() => {
-            setShowDetails(false); // Feche o modal de preview da imagem
-          }}
-          className="z-50 absolute bottom-[97%] max-[420px]:bottom-[97%] left-[98%] max-[680px]:left-[95%] max-[420px]:left-[95%] h-[35px] max-[420px]:h-[30px] px-3 max-[420px]:px-2 bg-black text-white text-xl border-[0.2px] border-[#ffffff3a] max-[420px]:text-xl rounded-[100%] font-bold hover:bg-[#FF6E00] transition-colors ease-in-out duration-500"
-        >
-          X
-        </button>
-        {/*Imagem */}
-        <div className="relative w-[100%] h-[45%]">
-          <div className="absolute opacity-[8%] w-[100%] h-[100%] z-1 bg-gradient-to-r from-[#FE9022] to-orange-500 rounded-[15px_15px_0px_0px]"></div>
-          <img
-            src={url}
-            alt={capitalizedTitle}
-            className="w-[100%] h-[100%] bg-center aspect-auto border-b-2 border-orange-500 rounded-[15px_15px_0px_0px]"
-          />
-        </div>
-        {/*Descrições*/}
-        <div className="w-[100%] h-[100%] flex flex-col justify-between p-3 rounded-[0px_0px_15px_15px] bg-gradient-to-r from-[#fe902216] to-orange-100">
-          <div className="flex flex-col gap-2">
-            {/*Título*/}
-            <h2 className="text-2xl font-semibold break-words">
-              {capitalizedTitle}
-            </h2>
-            {/*Categoria*/}
-            <h3 className="text-sm text-[#757575] max-[680px]:text-xs">
-              Categoria: {capitalizedCategory}
-            </h3>
-            {/*Descricão*/}
-            <p className="w-[100%] text-justify text-lg max-[680px]:text-sm">
-              {capitalizedDescription}
-            </p>
+      <div className={`fixed inset-0 flex items-center justify-center z-50`}>
+        <article className="flex flex-col items-center justify-center w-[750px] max-[1110px]:w-[580px] max-[680px]:w-[400px] max-[480px]:w-[320px] h-[650px] max-[480px]:h-[550px] text-start bg-white rounded-[15px_15px_15px_15px] drop-shadow-xl border-[0.5px] border-neutral-200">
+          {/*Botão para fechar o modal*/}
+          <button
+            onClick={() => {
+              setShowDetails(false); // Feche o modal de preview da imagem
+            }}
+            className="z-50 absolute bottom-[97%] max-[420px]:bottom-[97%] left-[98%] max-[680px]:left-[95%] max-[420px]:left-[95%] h-[35px] max-[420px]:h-[30px] px-3 max-[420px]:px-2 bg-black text-white text-xl border-[0.2px] border-[#ffffff3a] max-[420px]:text-xl rounded-[100%] font-bold hover:bg-[#FF6E00] transition-colors ease-in-out duration-500"
+          >
+            X
+          </button>
+          {/*Imagem */}
+          <div className="relative w-[100%] h-[45%]">
+            <div className="absolute opacity-[8%] w-[100%] h-[100%] z-1 bg-gradient-to-r from-[#FE9022] to-orange-500 rounded-[15px_15px_0px_0px]"></div>
+            <img
+              src={url}
+              alt={capitalizedTitle}
+              className="w-[100%] h-[100%] bg-center aspect-auto border-b-2 border-orange-500 rounded-[15px_15px_0px_0px]"
+            />
           </div>
-          <div className="w-full flex max-[480px]:flex-col justify-between max-[480px]:gap-3">
-            {/*Precos*/}
-            <div>
-              {isPromotion ? (
-                <div className="flex flex-col">
-                  <p className="text-2xl max-[820px]:text-xl max-[680px]:text-lg font-semibold text-[#757575]">
-                    De: R$ {formattedPrice} {unityTransformed}
-                  </p>
-                  <p className="text-6xl max-[820px]:text-4xl max-[680px]:text-2xl font-bold bg-gradient-to-r from-[#FE9022] to-orange-500 bg-clip-text text-transparent">
-                    Por: R$ {formattedPromoPrice} {unityTransformed}
-                  </p>
-                </div>
-              ) : (
-                <p className="text-6xl max-[820px]:text-4xl max-[680px]:text-3xl font-bold bg-gradient-to-r from-[#FE9022] to-orange-500 bg-clip-text text-transparent">
-                  R$ {formattedPrice} {unityTransformed}
-                </p>
-              )}
+          {/*Descrições*/}
+          <div className="w-[100%] h-[100%] flex flex-col justify-between p-3 rounded-[0px_0px_15px_15px] bg-gradient-to-r from-[#fe902216] to-orange-100">
+            <div className="flex flex-col gap-2">
+              {/*Título*/}
+              <h2 className="text-2xl font-semibold break-words">
+                {capitalizedTitle}
+              </h2>
+              {/*Categoria*/}
+              <h3 className="text-sm text-[#757575] max-[680px]:text-xs">
+                Categoria: {capitalizedCategory}
+              </h3>
+              {/*Descricão*/}
+              <p className="w-[100%] text-justify text-lg max-[680px]:text-sm">
+                {capitalizedDescription}
+              </p>
             </div>
-            {/*Contatos*/}
-            <div className="flex gap-1 items-end max-[480px]:justify-center">
-              <Link
-                href={wppLink}
-                target="_blank"
-                className="h-[40px] w-[40px] font-semibold rounded-lg flex items-center justify-center bg-gradient-to-r hover:bg-white from-[#FE9022] hover:from-[#fe902200] to-orange-500 hover:to-orange-0 text-white hover:text-black cursor-pointer transition-colors ease-in-out duration-[800ms] shadow-[0px_0px_9px_1px_#1b191929]"
-              >
-                <FaWhatsapp size={25} />
-              </Link>
-              <Link
-                href={facebookLink}
-                target="_blank"
-                className="h-[40px] w-[40px] font-semibold rounded-lg flex items-center justify-center bg-gradient-to-r hover:bg-white from-[#FE9022] hover:from-[#fe902200] to-orange-500 hover:to-orange-0 text-white hover:text-black cursor-pointer transition-colors ease-in-out duration-[800ms] shadow-[0px_0px_9px_1px_#1b191929]"
-              >
-                <FaFacebook size={25} />
-              </Link>
+            <div className="w-full flex max-[480px]:flex-col justify-between max-[480px]:gap-3">
+              {/*Precos*/}
+              <div>
+                {isPromotion ? (
+                  <div className="flex flex-col">
+                    <p className="text-2xl max-[820px]:text-xl max-[680px]:text-lg font-semibold text-[#757575]">
+                      De: R$ {formattedPrice} {unityTransformed}
+                    </p>
+                    <p className="text-6xl max-[1110px]:text-4xl max-[680px]:text-2xl font-bold bg-gradient-to-r from-[#FE9022] to-orange-500 bg-clip-text text-transparent">
+                      Por: R$ {formattedPromoPrice} {unityTransformed}
+                    </p>
+                  </div>
+                ) : (
+                  <p className="text-6xl max-[1023px]:text-4xl max-[680px]:text-3xl font-bold bg-gradient-to-r from-[#FE9022] to-orange-500 bg-clip-text text-transparent">
+                    R$ {formattedPrice} {unityTransformed}
+                  </p>
+                )}
+              </div>
+              {/*Contatos*/}
+              <div className="flex gap-1 items-end max-[480px]:justify-center">
+                <Link
+                  href={wppLink}
+                  target="_blank"
+                  className="h-[40px] w-[40px] font-semibold rounded-lg flex items-center justify-center bg-gradient-to-r hover:bg-white from-[#FE9022] hover:from-[#fe902200] to-orange-500 hover:to-orange-0 text-white hover:text-black cursor-pointer transition-colors ease-in-out duration-[800ms] shadow-[0px_0px_9px_1px_#1b191929]"
+                >
+                  <FaWhatsapp size={25} />
+                </Link>
+                <Link
+                  href={facebookLink}
+                  target="_blank"
+                  className="h-[40px] w-[40px] font-semibold rounded-lg flex items-center justify-center bg-gradient-to-r hover:bg-white from-[#FE9022] hover:from-[#fe902200] to-orange-500 hover:to-orange-0 text-white hover:text-black cursor-pointer transition-colors ease-in-out duration-[800ms] shadow-[0px_0px_9px_1px_#1b191929]"
+                >
+                  <FaFacebook size={25} />
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-      </article>
+        </article>
+      </div>
     </>
   );
 };

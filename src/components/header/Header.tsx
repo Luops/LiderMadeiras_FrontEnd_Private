@@ -46,45 +46,46 @@ const Header = () => {
     };
   }, []);
 
-  console.log(isScrolled);
-
-  //console.log(user);
   return (
-    <nav
-      className={
-        isScrolled
-          ? "sticky top-0 border-b shadow-[0px_0px_9px_1px_#1b191929] bg-white z-[41] flex items-center justify-evenly center py-[25px] px-[35px]"
-          : "flex items-center justify-evenly py-[25px] px-[35px]"
-      }
-    >
-      <ul>
-        <li>
-          <Link href="/">Home</Link>
-        </li>
-        <li>
-          <Link href="/register">Registro</Link>
-        </li>
-      </ul>
-      <ul className="ul-login">
-        {user && (
-          <button className="logout" onClick={logout}>
-            Logout
-          </button>
-        )}
-        {user ? (
-          <div className="div-user">
-            <i className="icon-user">
-              <BiSolidUserCircle />
-            </i>
-            <h3 key={user.id}>{user.name}</h3>
-          </div>
-        ) : (
-          <li>
-            <Link href="/login">Login</Link>
-          </li>
-        )}
-      </ul>
-    </nav>
+    <>
+      <header
+        className={
+          isScrolled
+            ? `w-full sticky top-0 border-b shadow-[0px_0px_9px_1px_#1b191929] bg-white z-[41] px-[35px]`
+            : `w-full px-[35px]`
+        }
+      >
+        <nav className="flex w-100 items-center justify-evenly">
+          <ul>
+            <li>
+              <Link href="/">Home</Link>
+            </li>
+            <li>
+              <Link href="/register">Registro</Link>
+            </li>
+          </ul>
+          <ul className="ul-login">
+            {user && (
+              <button className="logout" onClick={logout}>
+                Logout
+              </button>
+            )}
+            {user ? (
+              <div className="div-user">
+                <i className="icon-user">
+                  <BiSolidUserCircle />
+                </i>
+                <h3 key={user.id}>{user.name}</h3>
+              </div>
+            ) : (
+              <li>
+                <Link href="/login">Login</Link>
+              </li>
+            )}
+          </ul>
+        </nav>
+      </header>
+    </>
   );
 };
 
