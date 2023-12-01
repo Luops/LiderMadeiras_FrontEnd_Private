@@ -125,7 +125,7 @@ const ShowProductDetails = ({
             onClick={() => {
               setShowDetails(false); // Feche o modal de preview da imagem
             }}
-            className="z-50 absolute bottom-[97%] max-[420px]:bottom-[97%] left-[98%] max-[680px]:left-[95%] max-[420px]:left-[95%] h-[35px] max-[420px]:h-[30px] px-3 max-[420px]:px-2 bg-black text-white text-xl border-[0.2px] border-[#ffffff3a] max-[420px]:text-xl rounded-[100%] font-bold hover:bg-[#FF6E00] transition-colors ease-in-out duration-500"
+            className="z-50 absolute bottom-[97%] max-[420px]:bottom-[97%] left-[98%] max-[680px]:left-[95%] max-[420px]:left-[95%] h-[35px] max-[420px]:h-[30px] px-3 max-[420px]:px-2 bg-black text-white text-xl border-[0.2px] border-[#ffffff3a] max-[420px]:text-xl rounded-sm font-bold hover:bg-[#FF6E00] transition-colors ease-in-out duration-500"
           >
             X
           </button>

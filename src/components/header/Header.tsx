@@ -55,13 +55,10 @@ const Header = () => {
             : `w-full px-[35px]`
         }
       >
-        <nav className="flex w-100 items-center justify-evenly">
+        <nav className="flex w-100 items-center justify-center">
           <ul>
             <li>
               <Link href="/">Home</Link>
-            </li>
-            <li>
-              <Link href="/register">Registro</Link>
             </li>
           </ul>
           <ul className="ul-login">
@@ -70,17 +67,13 @@ const Header = () => {
                 Logout
               </button>
             )}
-            {user ? (
+            {user && (
               <div className="div-user">
                 <i className="icon-user">
                   <BiSolidUserCircle />
                 </i>
                 <h3 key={user.id}>{user.name}</h3>
               </div>
-            ) : (
-              <li>
-                <Link href="/login">Login</Link>
-              </li>
             )}
           </ul>
         </nav>
