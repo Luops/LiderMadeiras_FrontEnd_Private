@@ -119,7 +119,7 @@ const ShowProductDetails = ({
   return (
     <>
       <div className={`fixed inset-0 flex items-center justify-center z-50`}>
-        <article className="flex flex-col items-center justify-center w-[750px] max-[1110px]:w-[580px] max-[680px]:w-[400px] max-[480px]:w-[320px] h-[650px] max-[480px]:h-[550px] text-start bg-white rounded-[15px_15px_15px_15px] drop-shadow-xl border-[0.5px] border-neutral-200">
+        <article className="flex flex-col items-center justify-center w-[650px] max-[1110px]:w-[580px] max-[680px]:w-[400px] max-[480px]:w-[320px] h-[650px] max-[480px]:h-[550px] text-start bg-white rounded-[4px] drop-shadow-xl border-[0.5px] border-neutral-200">
           {/*Botão para fechar o modal*/}
           <button
             onClick={() => {
@@ -131,15 +131,15 @@ const ShowProductDetails = ({
           </button>
           {/*Imagem */}
           <div className="relative w-[100%] h-[45%]">
-            <div className="absolute opacity-[8%] w-[100%] h-[100%] z-1 bg-gradient-to-r from-[#FE9022] to-orange-500 rounded-[15px_15px_0px_0px]"></div>
+            <div className="absolute opacity-[8%] w-[100%] h-[100%] z-1 bg-gradient-to-r from-[#FE9022] to-orange-500 rounded-[4px_4px_0px_0px]"></div>
             <img
               src={url}
               alt={capitalizedTitle}
-              className="w-[100%] h-[100%] bg-center aspect-auto border-b-2 border-orange-500 rounded-[15px_15px_0px_0px]"
+              className="w-[100%] h-[100%] bg-center aspect-auto border-b-2 border-orange-500 rounded-[4px_4px_0px_0px]"
             />
           </div>
           {/*Descrições*/}
-          <div className="w-[100%] h-[100%] flex flex-col justify-between p-3 rounded-[0px_0px_15px_15px] bg-gradient-to-r from-[#fe902216] to-orange-100">
+          <div className="w-[100%] h-[100%] flex flex-col justify-between p-3 rounded-[0px_0px_4px_4px] bg-gradient-to-r from-[#fe902216] to-orange-100">
             <div className="flex flex-col gap-2">
               {/*Título*/}
               <h2 className="text-2xl font-semibold break-words">
@@ -150,7 +150,7 @@ const ShowProductDetails = ({
                 Categoria: {capitalizedCategory}
               </h3>
               {/*Descricão*/}
-              <p className="w-[100%] text-justify text-lg max-[680px]:text-sm">
+              <p className="w-[100%] text-justify text-md max-[680px]:text-sm">
                 {capitalizedDescription}
               </p>
             </div>
@@ -162,12 +162,12 @@ const ShowProductDetails = ({
                     <p className="text-2xl max-[820px]:text-xl max-[680px]:text-lg font-semibold text-[#757575]">
                       De: R$ {formattedPrice} {unityTransformed}
                     </p>
-                    <p className="text-6xl max-[1110px]:text-4xl max-[680px]:text-2xl font-bold bg-gradient-to-r from-[#FE9022] to-orange-500 bg-clip-text text-transparent">
+                    <p className="text-4xl max-[680px]:text-2xl font-bold bg-gradient-to-r from-[#FE9022] to-orange-500 bg-clip-text text-transparent">
                       Por: R$ {formattedPromoPrice} {unityTransformed}
                     </p>
                   </div>
                 ) : (
-                  <p className="text-6xl max-[1023px]:text-4xl max-[680px]:text-3xl font-bold bg-gradient-to-r from-[#FE9022] to-orange-500 bg-clip-text text-transparent">
+                  <p className="text-4xl max-[680px]:text-3xl font-bold bg-gradient-to-r from-[#FE9022] to-orange-500 bg-clip-text text-transparent">
                     R$ {formattedPrice} {unityTransformed}
                   </p>
                 )}

@@ -67,7 +67,7 @@ const AsideDash = ({ setActiveSection }) => {
       </button>
 
       <aside
-        ref={asideRef}
+        ref={asideRef} 
         className={`fixed mt-[-1px] z-50 bg-white flex flex-col max-w-[250px] min-w-[180px] h-full sm:w-[150px] border-r-[1px] ${
           showAside ? "translate-x-0" : "-translate-x-full"
         }`}
