@@ -19,6 +19,7 @@ const config: Config = {
       mont: ["Montserrat", "sans-serif"],
       mark: ["Permanent Marker", "cursive"],
       rubik: ["Rubik Mono One", "sans-serif"],
+      roboto: ["Roboto", "sans-serif"],
     },
   },
   plugins: [],

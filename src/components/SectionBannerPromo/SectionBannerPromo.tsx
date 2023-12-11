@@ -31,7 +31,7 @@ function SectionBannerPromo() {
   }, []); // Dependência vazia para executar apenas uma vez, no montamento do componente
 
   return (
-    <section className="w-full flex max-[869px]:flex-col z-[41] max-[869px]:h-screen justify-evenly max-[869px]:justify-center items-center py-5 bg-gradient-to-r from-blue-400 to-blue-800">
+    <section className="w-full flex max-[869px]:flex-col z-[41] max-[869px]:h-screen max-[680px]:h-auto justify-evenly max-[869px]:justify-center items-center py-5 max-[680px]:py-20 bg-gradient-to-r from-blue-400 to-blue-800">
       {/*Imagens modo mobile <= 869px*/}
       {isSmallWidth && (
         <div className="relative flex items-center justify-center">
@@ -53,7 +53,7 @@ function SectionBannerPromo() {
         </div>
       )}
       {/*Texto do container de promoções*/}
-      <div className="flex flex-col gap-2 max-[869px]:items-center max-[869px]:mt-[-75px] max-[480px]:mt-[-60px] max-[380px]:mt-[-50px] max-[869px]:z-[11]">
+      <div className="flex flex-col gap-2 max-[869px]:items-center max-[869px]:mt-[-75px] max-[869px]:z-[11]">
         <h2 className="text-white font-bold text-5xl max-[869px]:text-6xl max-[656px]:w-full max-[640px]:text-5xl max-[480px]:text-4xl w-[350px] max-[869px]:w-[650px] text-center drop-shadow-lg">
           Promoções{" "}
           <span className="uppercase bg-gradient-to-r from-[#FE9022] to-orange-500 bg-clip-text text-transparent">

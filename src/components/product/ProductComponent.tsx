@@ -126,7 +126,7 @@ const ProductComponent = ({
             className="w-full border border-slate-300 rounded-lg shadow-2xl"
           />
         </picture>
-        <h3 className="text-center text-sm text-[#373737dd]">{truncatedTitle}</h3>
+        <h3 className="text-center text-sm font-semibold text-[#373737dd]">{truncatedTitle}</h3>
         {isPromotion ? (
           <div className="flex flex-col mt-3">
             <p className="text-center text-sm drop-shadow-lg">
