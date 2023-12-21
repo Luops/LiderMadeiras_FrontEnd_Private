@@ -99,6 +99,10 @@ function ShowFormEdit({
 
       reader.readAsDataURL(file);
     } else {
+      // Verifica se o campo é descrição e limita a 403 caracteres
+      if (name === "description" && value.length > 403) {
+        return; // Não atualiza o estado se exceder 403 caracteres
+      }
       // Se o campo for de preço ou promoção, verifique se o valor é um número
       setEditedProduct((prevData) => {
         if (
@@ -109,13 +113,17 @@ function ShowFormEdit({
           return prevData;
         }
 
+        // Verifica o comprimento atual da descrição
+        const updatedDescription =
+          name === "description" ? value.substring(0, 403) : value;
+
         // Para outros campos de entrada, armazene o valor normalmente
         return {
           ...prevData,
           [name]:
             name === "price" || name === "promoPrice"
-              ? value.replace(",", ".")
-              : value,
+              ? updatedDescription.replace(",", ".") // Substitui vírgulas por pontos para formato numérico correto
+              : updatedDescription,
         };
       });
     }
@@ -235,6 +243,9 @@ function ShowFormEdit({
     }
   }
 
+  // Contabilizar os caracteres digitados
+  const remainingCharacters = 403 - editedProduct.description.length;
+
   return (
     <>
       {/* Se o modal de preview da imagem estiver visível, mostre-o */}
@@ -316,6 +327,7 @@ function ShowFormEdit({
               className="w-full border-b-[3px] border-gray-400 rounded-lg shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
               placeholder="Descrição do produto"
             ></textarea>
+            <p>Caracteres restantes: {remainingCharacters}</p>
           </label>
 
           {/*Input do preço do produto*/}

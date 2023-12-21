@@ -1,10 +1,18 @@
 "use client";
 import React from "react";
 
+// Next Components
+import { useRouter } from "next/router";
+import { useContext } from "react";
+
+// Context
+import UserContext from "@/store/provider";
+
 // Components
 import AsideDash from "@/components/aside/AsideDash";
 import ListProducts from "../../../components/listProducts/ListProducts";
 import AddProdForm from "../../../components/addProdForm/AddProdForm";
+import PrivateRoute from "@/components/privateRoute/PrivateRoute";
 
 function Dashboard() {
   // State para controlar a seção ativa
@@ -23,13 +31,15 @@ function Dashboard() {
   };
   return (
     <>
-      <main className="w-full h-screen flex">
-        <AsideDash setActiveSection={setActiveSection} />
-        <article className="flex-1 flex flex-col items-center">
-          {/* Conteudo da pagina */}
-          {renderSection()}
-        </article>
-      </main>
+      <PrivateRoute>
+        <main className="w-full h-screen flex">
+          <AsideDash setActiveSection={setActiveSection} />
+          <article className="flex-1 flex flex-col items-center">
+            {/* Conteudo da pagina */}
+            {renderSection()}
+          </article>
+        </main>
+      </PrivateRoute>
     </>
   );
 }

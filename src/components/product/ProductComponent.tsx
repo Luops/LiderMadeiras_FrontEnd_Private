@@ -43,52 +43,21 @@ const ProductComponent = ({
   const [showDetails, setShowDetails] = React.useState(false);
 
   // Função para formatar o preço
-  const formatPrice = (price: number) => {
-    // Verificar se price é um número
-    if (typeof price !== "number" || isNaN(price)) {
-      return "0,00"; // ou outro valor padrão que você queira retornar se price não for um número
-    }
-    // Converte o número para uma string com duas casas decimais
-    let formattedPrice = price.toFixed(2);
-
-    // Substitui o ponto por vírgula
-    formattedPrice = formattedPrice.replace(".", ",");
-
-    // Adiciona zeros após a vírgula se necessário
-    if (!formattedPrice.includes(",")) {
-      formattedPrice += ",00";
-    } else if (formattedPrice.split(",")[1].length === 1) {
-      formattedPrice += "00"; // Adiciona zeros se houver apenas um dígito após a vírgula
-    }
-
-    return formattedPrice;
+  const formatPriceWithThousandSeparator = (price) => {
+    const [integerPart, decimalPart] = price.toString().split(".");
+    const integerWithSeparator = integerPart.replace(
+      /\B(?=(\d{3})+(?!\d))/g,
+      "."
+    );
+    return decimalPart
+      ? `${integerWithSeparator},${decimalPart}`
+      : integerWithSeparator;
   };
   // Formatar o preço
-  const formattedPrice = formatPrice(price);
+  const formattedPrice = formatPriceWithThousandSeparator(price.toFixed(2));
 
-  // Função para formatar o preço da promocão
-  const formatPromoPrice = (promoPrice: number) => {
-    // Verificar se price é um número
-    if (typeof promoPrice !== "number" || isNaN(promoPrice)) {
-      return "0,00"; // ou outro valor padrão que você queira retornar se price não for um número
-    }
-    // Converte o número para uma string com duas casas decimais
-    let formattedPromoPrice = promoPrice.toFixed(2);
-
-    // Substitui o ponto por vírgula
-    formattedPromoPrice = formattedPromoPrice.replace(".", ",");
-
-    // Adiciona zeros após a vírgula se necessário
-    if (!formattedPromoPrice.includes(",")) {
-      formattedPromoPrice += ",00";
-    } else if (formattedPromoPrice.split(",")[1].length === 1) {
-      formattedPromoPrice += "00"; // Adiciona zeros se houver apenas um dígito após a vírgula
-    }
-
-    return formattedPromoPrice;
-  };
-  // Formatar o preço
-  const formattedPromoPrice = formatPromoPrice(promoPrice);
+  // Formatar o preço da promo
+  const formattedPromoPrice = formatPriceWithThousandSeparator(promoPrice.toFixed(2));
 
   // Limite máximo de caracteres para title e description
   const maxTitleLength = 30; // Defina o valor desejado
@@ -126,7 +95,9 @@ const ProductComponent = ({
             className="w-full border border-slate-300 rounded-lg shadow-2xl"
           />
         </picture>
-        <h3 className="text-center text-sm font-semibold text-[#373737dd]">{truncatedTitle}</h3>
+        <h3 className="text-center text-sm font-semibold text-[#373737dd]">
+          {truncatedTitle}
+        </h3>
         {isPromotion ? (
           <div className="flex flex-col mt-3">
             <p className="text-center text-sm drop-shadow-lg">

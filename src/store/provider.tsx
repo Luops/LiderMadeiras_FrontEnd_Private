@@ -11,6 +11,9 @@ import { Product } from "@/models/Product";
 import { store } from "./store";
 import { Provider } from "react-redux";
 
+// Components
+import PrivateRoute from "@/components/privateRoute/PrivateRoute";
+
 // Services
 import { getUser } from "@/services/get-users";
 import { getProducts } from "@/services/get-products";
@@ -92,7 +95,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <UserContext.Provider value={{ user, setUser, products }}>
-      <Provider store={store}>{children}</Provider>
+      <Provider store={store}>
+        <PrivateRoute router={router}>{children}</PrivateRoute>
+      </Provider>
     </UserContext.Provider>
   );
 }

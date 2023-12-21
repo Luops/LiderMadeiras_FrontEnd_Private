@@ -31,7 +31,7 @@ function SectionBannerPromo() {
   }, []); // Dependência vazia para executar apenas uma vez, no montamento do componente
 
   return (
-    <section className="w-full flex max-[869px]:flex-col z-[41] max-[869px]:h-screen max-[680px]:h-auto justify-evenly max-[869px]:justify-center items-center py-5 max-[680px]:py-20 bg-gradient-to-r from-blue-400 to-blue-800">
+    <section id="bannerPromocoes" className="w-[87%] max-[940px]:w-[93%] max-[869px]:w-full flex max-[869px]:flex-col z-[41] max-[869px]:h-screen max-[680px]:h-auto justify-evenly max-[869px]:justify-center items-center py-5 max-[680px]:py-20 bg-gradient-to-r from-blue-400 to-blue-800">
       {/*Imagens modo mobile <= 869px*/}
       {isSmallWidth && (
         <div className="relative flex items-center justify-center">
@@ -67,7 +67,7 @@ function SectionBannerPromo() {
       </div>
       {/*Imagens modo desktop >= 869px*/}
       {!isSmallWidth && (
-        <div className="relative flex items-center justify-center">
+        <div className="relative flex items-center justify-center max-[1100px]:right-[50px] max-[869px]:right-0">
           <Image
             src={ImageOneBanner}
             alt="Banner"

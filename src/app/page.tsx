@@ -6,17 +6,20 @@ import React from "react";
 import SectionBannerPromo from "@/components/SectionBannerPromo/SectionBannerPromo";
 import SectionProducts from "@/components/SectionProducts/SectionProducts";
 import SectionAbout from "@/components/SectionAbout/SectionAbout";
+import SectionLocation from "@/components/SectionLocation/SectionLocation";
 
 export default function Home() {
   return (
     <>
-      <main className="w-full flex flex-col items-center justify-center antialiased mb-5">
+      <main className="w-full flex flex-col items-center justify-center antialiased mb-5 !pt-0">
         {/*Sobre*/}
-        <SectionAbout />
+        <SectionAbout/>
+        {/*Localização e Entregas*/}
+        <SectionLocation/>
         {/*Container focando na promoção Lider */}
-        <SectionBannerPromo />
+        <SectionBannerPromo/>
         {/*Produtos e Lista de Categorias*/}
-        <SectionProducts />
+        <SectionProducts id="produtos"/>
       </main>
     </>
   );

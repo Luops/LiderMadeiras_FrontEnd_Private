@@ -17,6 +17,9 @@ import { fetchLogin } from "@/store/slices/authSlice";
 import { parseCookies } from "nookies";
 
 export default function Login() {
+  // State para o loading do botão
+  const [loading, setLoading] = React.useState(false);
+
   const router = useRouter();
   const dispatch = useAppDispatch();
   const cookies = parseCookies();
@@ -28,6 +31,7 @@ export default function Login() {
     },
     onSubmit: async (values) => {
       console.log(values);
+      setLoading(true);
       await dispatch(fetchLogin(values));
     },
   });
@@ -41,28 +45,27 @@ export default function Login() {
     window.location.href = "/";
   }
 
+  // Verificar se o botão esta carregando, e se estiver carregando e não for concluído em 4s, mostrar o botão
+  React.useEffect(() => {
+    if (loading && userId === undefined) {
+      setTimeout(() => {
+        setLoading(false);
+      }, 4000);
+    }
+  });
+
   return (
     <>
-      <main>
+      <main className="w-full">
         <Box
+          className="flex flex-col items-center justify-center gap-5 max-[480px]:w-full w-[450px] px-[35px] py-[15px] mt-[15px]"
           component="form"
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            width: "450px",
-            justifyContent: "center",
-            alignItems: "center",
-            margin: "15px 0 0 0",
-            gap: "15px",
-            padding: "35px 15px",
-            backgroundColor: "rgba(217, 217, 217, 0.52)",
-            borderRadius: "15px",
-            boxShadow: "0px 10px 22px 0px rgba(0, 0, 0, 0.299)",
-          }}
           noValidate
-          autoComplete="off"
+          autoComplete="on"
         >
-          <h3>Faça o Login aqui!</h3>
+          <h3 className="font-roboto font-bold uppercase tracking-[10px] text-2xl bg-gradient-to-r from-[#FE9022] to-orange-500 bg-clip-text text-transparent drop-shadow-2xl border-collapse">
+            Login
+          </h3>
           <TextField
             id=" email"
             value={formik.values.email}
@@ -80,6 +83,11 @@ export default function Login() {
             id="password"
             value={formik.values.password}
             onChange={formik.handleChange}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                formik.handleSubmit();
+              }
+            }}
             type="password"
             label="Password"
             name="password"
@@ -89,16 +97,24 @@ export default function Login() {
               backgroundColor: "white",
             }}
           />
-          <Button
-            onClick={() => formik.handleSubmit()}
-            variant="contained"
-            size="large"
-            sx={{
-              width: "100%",
-            }}
-          >
-            Entrar
-          </Button>
+          {loading ? (
+            <Button
+              variant="contained"
+              size="large"
+              className="w-full bg-slate-500"
+            >
+              Carregando...
+            </Button>
+          ) : (
+            <Button
+              onClick={() => formik.handleSubmit()}
+              variant="contained"
+              size="large"
+              className="w-full bg-slate-500"
+            >
+              Entrar
+            </Button>
+          )}
         </Box>
       </main>
     </>

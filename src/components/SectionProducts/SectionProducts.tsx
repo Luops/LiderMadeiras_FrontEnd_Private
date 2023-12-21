@@ -228,7 +228,7 @@ function SectionProducts({
   }, []);
 
   return (
-    <section className="relative w-full flex max-[869px]:flex-col items-start justify-between px-5 max-[1152px]:px-0">
+    <section id="produtos" className="relative w-[87%] max-[940px]:w-[93%] max-[869px]:w-full flex max-[869px]:flex-col items-start justify-between max-[869px]:px-5 max-[869px]:mb-24">
       {/*Container do botão de filtros em mobile (<= 869px) */}
       <div className="w-full flex z-[41] items-center justify-center min-[870px]:hidden mb-5 pb-2 border-b">
         <button

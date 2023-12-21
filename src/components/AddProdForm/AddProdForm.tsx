@@ -125,6 +125,11 @@ function AddProdForm() {
 
       reader.readAsDataURL(file);
     } else {
+      // Verifica se o campo é descrição e limita a 403 caracteres
+      if (name === "description" && value.length > 403) {
+        return; // Não atualiza o estado se exceder 403 caracteres
+      }
+
       // Se o campo for de preço ou promoção, verifique se o valor é um número
       setFormData((prevData) => {
         if (
@@ -135,13 +140,17 @@ function AddProdForm() {
           return prevData;
         }
 
+        // Verifica o comprimento atual da descrição
+        const updatedDescription =
+          name === "description" ? value.substring(0, 403) : value;
+
         // Para outros campos de entrada, armazene o valor normalmente
         return {
           ...prevData,
           [name]:
             name === "price" || name === "promoPrice"
-              ? value.replace(",", ".")
-              : value,
+              ? updatedDescription.replace(",", ".") // Substitui vírgulas por pontos para formato numérico correto
+              : updatedDescription,
         };
       });
     }
@@ -214,6 +223,9 @@ function AddProdForm() {
       setError("");
     }
   }, [submitAttempted]);
+
+  // Contabilizar os caracteres digitados
+  const remainingCharacters = 403 - formData.description.length;
 
   return (
     <>
@@ -296,6 +308,7 @@ function AddProdForm() {
               placeholder="Descrição do produto"
               required
             ></textarea>
+            <p>Caracteres restantes: {remainingCharacters}</p>
           </label>
 
           {/*Input do preço do produto*/}

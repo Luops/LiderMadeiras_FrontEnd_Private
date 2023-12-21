@@ -34,6 +34,7 @@ const ListProducts = ({
   file,
 }: Product) => {
   const { products }: any = React.useContext(UserContext);
+  const { user }: any = React.useContext(UserContext);
 
   // State para abrir o modal de detalhes do produto
   const [showDetails, setShowDetails] = React.useState(false);
@@ -133,74 +134,84 @@ const ListProducts = ({
   console.log(url);
   return (
     <>
-      {/* Mostrar o modal de detalhes do produto */}
-      {selectedProduct && (
+      {!user ? (
         <>
-          {products.map((product: any) => (
-            <ShowProductDetails
-              key={selectedProduct._id}
-              {...selectedProduct}
-              setShowDetails={setSelectedProduct}
-            />
-          ))}
+          <section>
+            <h1>Por favor, realize o login para acessar o Dashboard.</h1>
+          </section>
+        </>
+      ) : (
+        <>
+          {/* Mostrar o modal de detalhes do produto */}
+          {selectedProduct && (
+            <>
+              {products.map((product: any) => (
+                <ShowProductDetails
+                  key={selectedProduct._id}
+                  {...selectedProduct}
+                  setShowDetails={setSelectedProduct}
+                />
+              ))}
+            </>
+          )}
+          <section className="flex max-[1210px]:flex-col sm:justify-center max-sm:justify-center gap-3 lg:ml-44">
+            <article
+              className={`flex flex-col w-[500px] max-[620px]:w-[420px] max-[450px]:w-[320px] rounded-[10px_10px_10px_10px] shadow-[5px_3px_20px_-4px_rgba(0,0,0,0.59)]`}
+              style={{ height: containerHeightProd }}
+            >
+              <h3 className="w-100 text-3xl font-bold text-white py-3 text-center rounded-[10px_10px_0px_0px] bg-gradient-to-r from-[#FE9022] to-orange-500">
+                Produtos
+              </h3>
+              {/*Retornar produtos que não sao promoções*/}
+              {productsNotInPromotion.length == 0 ? (
+                <ProductView
+                  title="Carregando..."
+                  description="Carregando..."
+                  price="Carregando..."
+                  url="Carregando..."
+                  setShowDetails={setShowDetails}
+                />
+              ) : (
+                productsNotInPromotion.map((product: any) => (
+                  <ProductView
+                    key={setSelectedProduct._id}
+                    {...product}
+                    _id={product._id}
+                    setShowDetails={() => setSelectedProduct(product)}
+                  />
+                ))
+              )}
+            </article>
+            <article
+              className={`flex flex-col w-[500px] max-[620px]:w-[420px] max-[450px]:w-[320px] rounded-[10px_10px_10px_10px] shadow-[5px_3px_20px_-4px_rgba(0,0,0,0.59)]`}
+              style={{ height: containerHeightPromo }}
+            >
+              <h3 className="w-100 text-3xl font-bold text-white py-3 text-center rounded-[10px_10px_0px_0px] bg-gradient-to-r from-[#FE9022] to-orange-500">
+                Produtos em Promoção
+              </h3>
+              {/*Retornar produtos que sao promoções*/}
+              {productsInPromotion.length == 0 ? (
+                <ProductView
+                  title="Carregando..."
+                  description="Carregando..."
+                  price="Carregando..."
+                  url="Carregando..."
+                  setShowDetails={setShowDetails}
+                />
+              ) : (
+                productsInPromotion.map((product: any) => (
+                  <ProductView
+                    key={setSelectedProduct._id}
+                    {...product}
+                    setShowDetails={() => setSelectedProduct(product)}
+                    _id={product._id}
+                  />
+                ))
+              )}
+            </article>
+          </section>
         </>
       )}
-      <section className="flex max-[1210px]:flex-col sm:justify-center max-sm:justify-center gap-3 lg:ml-44">
-        <article
-          className={`flex flex-col w-[500px] max-[620px]:w-[420px] max-[450px]:w-[320px] rounded-[10px_10px_10px_10px] shadow-[5px_3px_20px_-4px_rgba(0,0,0,0.59)]`}
-          style={{ height: containerHeightProd }}
-        >
-          <h3 className="w-100 text-3xl font-bold text-white py-3 text-center rounded-[10px_10px_0px_0px] bg-gradient-to-r from-[#FE9022] to-orange-500">
-            Produtos
-          </h3>
-          {/*Retornar produtos que não sao promoções*/}
-          {productsNotInPromotion.length == 0 ? (
-            <ProductView
-              title="Carregando..."
-              description="Carregando..."
-              price="Carregando..."
-              url="Carregando..."
-              setShowDetails={setShowDetails}
-            />
-          ) : (
-            productsNotInPromotion.map((product: any) => (
-              <ProductView
-                key={setSelectedProduct._id}
-                {...product}
-                _id={product._id}
-                setShowDetails={() => setSelectedProduct(product)}
-              />
-            ))
-          )}
-        </article>
-        <article
-          className={`flex flex-col w-[500px] max-[620px]:w-[420px] max-[450px]:w-[320px] rounded-[10px_10px_10px_10px] shadow-[5px_3px_20px_-4px_rgba(0,0,0,0.59)]`}
-          style={{ height: containerHeightPromo }}
-        >
-          <h3 className="w-100 text-3xl font-bold text-white py-3 text-center rounded-[10px_10px_0px_0px] bg-gradient-to-r from-[#FE9022] to-orange-500">
-            Produtos em Promoção
-          </h3>
-          {/*Retornar produtos que sao promoções*/}
-          {productsInPromotion.length == 0 ? (
-            <ProductView
-              title="Carregando..."
-              description="Carregando..."
-              price="Carregando..."
-              url="Carregando..."
-              setShowDetails={setShowDetails}
-            />
-          ) : (
-            productsInPromotion.map((product: any) => (
-              <ProductView
-                key={setSelectedProduct._id}
-                {...product}
-                setShowDetails={() => setSelectedProduct(product)}
-                _id={product._id}
-              />
-            ))
-          )}
-        </article>
-      </section>
     </>
   );
 };

@@ -17,7 +17,10 @@ function SectionAbout({}: Props) {
   const wppLink = `https://api.whatsapp.com/send/?phone=5551984602351&text&type=phone_number&app_absent=0`;
 
   return (
-    <section className="relative w-full h-[600px] flex flex-col gap-10 justify-center items-center text-justify px-20 max-[635px]:px-5 py-5 overflow-hidden">
+    <section
+      id="sobre"
+      className="relative w-full h-[600px] flex flex-col gap-10 justify-center items-center text-justify px-20 max-[635px]:px-5 py-5 overflow-hidden"
+    >
       <Image
         src={Casa}
         alt="Banner"
@@ -37,11 +40,14 @@ function SectionAbout({}: Props) {
         transition={{ duration: 1, delay: 0.5 }}
         className="relative w-[40%] max-[980px]:w-[60%] max-[768px]:w-[100%] self-start z-1 text-white text-[1.05rem] max-[580px]:text-[.95rem] leading-[1.5] font-roboto"
       >
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident ipsa
-        debitis corrupti quo dolorum rem iure maiores fuga, ab veniam!
-        Reprehenderit esse laudantium quo sed, neque repudiandae sequi? Magni,
-        sunt. Reprehenderit esse laudantium quo sed, neque repudiandae sequi?
-        Magni, sunt.
+        Atuando desde 2010, nos localizamos na cidade de Gravataí - Rio Grande
+        do Sul. Construimos casas em todo nosso estado e em Santa Catarina.
+        Trabalhamos com projetos de casas de alvenaria ou madeira. Atuamos
+        também na venda de madeiras brutas e beneficiadas, entregando para
+        construtoras, lojas de materiais de construção e cliente final. Contamos
+        com madeira própria, o que torna muito mais ágil e competitivo em termos
+        financeiros. Nosso beneficiamento de madeiras garante os melhores preços
+        para quem deseja adquirir a casa pronta ou somente o madeiramento.
       </motion.p>
       {/*Botões de contato*/}
       <motion.div

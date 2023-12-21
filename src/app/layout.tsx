@@ -2,13 +2,13 @@
 import "./globals.css";
 
 // Components
-import Header from "@/components/header/Header";
 import Head from "./head";
+import Footer from "@/components/Footer/Footer";
+import Header from "@/components/Header/Header";
 
 // Provider
 import { Providers } from "../store/provider";
 import { Provider } from "react-redux";
-import { store } from "../store/store";
 
 export default function RootLayout({
   children,
@@ -18,10 +18,11 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <Head />
-      <body className="flex flex-col items-center justify-center bg-gradient-to-r from-[#fe902203] to-orange-50 font-mont">
+      <body className="h-screen flex flex-col items-center justify-between bg-gradient-to-r from-[#fe902203] to-orange-50 font-mont">
         <Providers>
           <Header />
           {children}
+          <Footer />
         </Providers>
       </body>
     </html>

@@ -65,52 +65,23 @@ const ShowProductDetails = ({
   const unityTransformed = unityTransform(unity);
 
   // Função para formatar o preço
-  const formatPrice = (price: number) => {
-    // Verificar se price é um número
-    if (typeof price !== "number" || isNaN(price)) {
-      return "0,00"; // ou outro valor padrão que você queira retornar se price não for um número
-    }
-    // Converte o número para uma string com duas casas decimais
-    let formattedPrice = price.toFixed(2);
-
-    // Substitui o ponto por vírgula
-    formattedPrice = formattedPrice.replace(".", ",");
-
-    // Adiciona zeros após a vírgula se necessário
-    if (!formattedPrice.includes(",")) {
-      formattedPrice += ",00";
-    } else if (formattedPrice.split(",")[1].length === 1) {
-      formattedPrice += "00"; // Adiciona zeros se houver apenas um dígito após a vírgula
-    }
-
-    return formattedPrice;
+  const formatPriceWithThousandSeparator = (price) => {
+    const [integerPart, decimalPart] = price.toString().split(".");
+    const integerWithSeparator = integerPart.replace(
+      /\B(?=(\d{3})+(?!\d))/g,
+      "."
+    );
+    return decimalPart
+      ? `${integerWithSeparator},${decimalPart}`
+      : integerWithSeparator;
   };
   // Formatar o preço
-  const formattedPrice = formatPrice(price);
+  const formattedPrice = formatPriceWithThousandSeparator(price.toFixed(2));
 
-  // Função para formatar o preço da promocão
-  const formatPromoPrice = (promoPrice: number) => {
-    // Verificar se price é um número
-    if (typeof promoPrice !== "number" || isNaN(promoPrice)) {
-      return "0,00"; // ou outro valor padrão que você queira retornar se price não for um número
-    }
-    // Converte o número para uma string com duas casas decimais
-    let formattedPromoPrice = promoPrice.toFixed(2);
-
-    // Substitui o ponto por vírgula
-    formattedPromoPrice = formattedPromoPrice.replace(".", ",");
-
-    // Adiciona zeros após a vírgula se necessário
-    if (!formattedPromoPrice.includes(",")) {
-      formattedPromoPrice += ",00";
-    } else if (formattedPromoPrice.split(",")[1].length === 1) {
-      formattedPromoPrice += "00"; // Adiciona zeros se houver apenas um dígito após a vírgula
-    }
-
-    return formattedPromoPrice;
-  };
-  // Formatar o preço
-  const formattedPromoPrice = formatPromoPrice(promoPrice);
+  // Formatar o preço da promoção
+  const formattedPromoPrice = formatPriceWithThousandSeparator(
+    promoPrice.toFixed(2)
+  );
 
   // link para os contatos
   const facebookLink = `https://www.facebook.com/LiderMadeirasGravatai?locale=pt_BR`;
@@ -118,14 +89,14 @@ const ShowProductDetails = ({
 
   return (
     <>
-      <div className={`fixed inset-0 flex items-center justify-center z-50`}>
-        <article className="flex flex-col items-center justify-center w-[650px] max-[1110px]:w-[580px] max-[680px]:w-[400px] max-[480px]:w-[320px] h-[650px] max-[480px]:h-[550px] text-start bg-white rounded-[4px] drop-shadow-xl border-[0.5px] border-neutral-200">
+      <div className={`inset-0 fixed flex items-center justify-center z-50`}>
+        <article className="flex flex-col items-center justify-center w-[650px] max-[1110px]:w-[580px] max-[680px]:w-[400px] max-[480px]:w-[320px] h-[600px] max-[480px]:h-[580px] text-start bg-white rounded-[4px] drop-shadow-xl border-[0.5px] border-neutral-200">
           {/*Botão para fechar o modal*/}
           <button
             onClick={() => {
               setShowDetails(false); // Feche o modal de preview da imagem
             }}
-            className="z-50 absolute bottom-[97%] max-[420px]:bottom-[97%] left-[98%] max-[680px]:left-[95%] max-[420px]:left-[95%] h-[35px] max-[420px]:h-[30px] px-3 max-[420px]:px-2 bg-black text-white text-xl border-[0.2px] border-[#ffffff3a] max-[420px]:text-xl rounded-sm font-bold hover:bg-[#FF6E00] transition-colors ease-in-out duration-500"
+            className="z-50 absolute bottom-[97%] max-[480px]:bottom-[102%] max-[479px]:bottom-[99%] left-[98%] max-[680px]:left-[95%] max-[420px]:left-[95%] h-[35px] max-[420px]:h-[30px] px-3 max-[420px]:px-2 bg-black text-white text-xl border-[0.2px] border-[#ffffff3a] max-[420px]:text-xl rounded-sm font-bold hover:bg-[#FF6E00] transition-colors ease-in-out duration-500"
           >
             X
           </button>
@@ -154,21 +125,21 @@ const ShowProductDetails = ({
                 {capitalizedDescription}
               </p>
             </div>
-            <div className="w-full flex max-[480px]:flex-col justify-between max-[480px]:gap-3">
+            <div className="w-full flex max-[480px]:flex-col justify-between max-[480px]:pb-1">
               {/*Precos*/}
               <div>
                 {isPromotion ? (
                   <div className="flex flex-col">
                     <p className="text-2xl max-[820px]:text-xl max-[680px]:text-lg font-semibold text-[#757575]">
-                      De: R$ {formattedPrice} {unityTransformed}
+                      De: R$ {formattedPrice} <span className="text-sm">{unityTransformed}</span>
                     </p>
                     <p className="text-4xl max-[680px]:text-2xl font-bold bg-gradient-to-r from-[#FE9022] to-orange-500 bg-clip-text text-transparent">
-                      Por: R$ {formattedPromoPrice} {unityTransformed}
+                      Por: R$ {formattedPromoPrice} <span className="text-sm min-[480px]:text-2xl">{unityTransformed}</span>
                     </p>
                   </div>
                 ) : (
                   <p className="text-4xl max-[680px]:text-3xl font-bold bg-gradient-to-r from-[#FE9022] to-orange-500 bg-clip-text text-transparent">
-                    R$ {formattedPrice} {unityTransformed}
+                    R$ {formattedPrice} <span className="text-[1rem] min-[480px]:text-2xl">{unityTransformed}</span>
                   </p>
                 )}
               </div>
