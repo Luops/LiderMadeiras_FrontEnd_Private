@@ -16,14 +16,26 @@ import { useAppDispatch } from "@/store/store";
 import { fetchLogin } from "@/store/slices/authSlice";
 import { parseCookies } from "nookies";
 
+// Icons
+import { FaEye } from "react-icons/fa";
+import { PiEyeClosedBold } from "react-icons/pi";
+
 export default function Login() {
   // State para o loading do botão
   const [loading, setLoading] = React.useState(false);
-
   const router = useRouter();
-  const dispatch = useAppDispatch();
+
+  // State para mostrar e esconder a senha
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = () => setShowPassword((show) => !show);
+
+  // Selecionar o userId
   const cookies = parseCookies();
+  console.log(cookies);
   const userId = cookies.userId;
+
+  const dispatch = useAppDispatch();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -74,10 +86,7 @@ export default function Login() {
             label="Email"
             name="email"
             variant="outlined"
-            sx={{
-              width: "100%",
-              backgroundColor: "white",
-            }}
+            className="w-full bg-white"
           />
           <TextField
             id="password"
@@ -88,14 +97,23 @@ export default function Login() {
                 formik.handleSubmit();
               }
             }}
-            type="password"
+            type={showPassword ? "text" : "password"} // Altera o tipo de acordo com o estado de showPassword
             label="Password"
             name="password"
             variant="outlined"
-            sx={{
-              width: "100%",
-              backgroundColor: "white",
+            InputProps={{
+              endAdornment: (
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  edge="end"
+                  aria-label="toggle password visibility"
+                >
+                  {showPassword ? <PiEyeClosedBold /> : <FaEye />}
+                </button>
+              ),
             }}
+            className="w-full bg-white"
           />
           {loading ? (
             <Button

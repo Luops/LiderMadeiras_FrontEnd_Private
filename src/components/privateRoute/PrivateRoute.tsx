@@ -19,8 +19,6 @@ const PrivateRoute = ({ children }: PrivateRouteProps) => {
   // Dados do usuário
   const { user }: any = React.useContext(UserContext);
 
-  console.log("Rota atual: ", pathName);
-
   React.useEffect(() => {
     if (pathName === "/dashboard") {
       if (user && user.role !== undefined && user.role >= 1) {

@@ -41,11 +41,14 @@ function Footer({}: Props) {
     }
   });
 
-  console.log(location);
   return (
     <>
       {location && <ShowLocation setLocation={setLocation} />}
-      <footer className={`${pathName === "/dashboard" ? "hidden" : ""} w-full flex flex-col items-center justify-center self-end gap-10 mt-5 px-24 max-[812px]:px-14 max-[420px]:px-10 py-10 bg-gradient-to-r from-blue-400 to-blue-800 shadow-2xl`}>
+      <footer
+        className={`${
+          pathName === "/dashboard" ? "hidden" : ""
+        } w-full flex flex-col items-center justify-center self-end gap-10 mt-5 px-24 max-[812px]:px-14 max-[420px]:px-10 py-10 bg-gradient-to-r from-blue-400 to-blue-800 shadow-2xl`}
+      >
         <article className="w-full flex flex-col items-center justify-center drop-shadow-md gap-4">
           <h2 className="text-white font-bold text-2xl uppercase">
             Lider Madeiras

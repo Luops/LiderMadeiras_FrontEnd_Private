@@ -136,7 +136,7 @@ const ListProducts = ({
     <>
       {!user ? (
         <>
-          <section>
+          <section className="flex items-center justify-center">
             <h1>Por favor, realize o login para acessar o Dashboard.</h1>
           </section>
         </>

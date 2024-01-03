@@ -99,6 +99,10 @@ function ShowFormEdit({
 
       reader.readAsDataURL(file);
     } else {
+      // Verificar se o campo é title e limitar a 40 caracteres
+      if (name === "title" && value.length > 40) {
+        return;
+      } 
       // Verifica se o campo é descrição e limita a 403 caracteres
       if (name === "description" && value.length > 403) {
         return; // Não atualiza o estado se exceder 403 caracteres
@@ -243,8 +247,11 @@ function ShowFormEdit({
     }
   }
 
-  // Contabilizar os caracteres digitados
-  const remainingCharacters = 403 - editedProduct.description.length;
+  // Contabilizar os caracteres digitados do titulo
+  const remainingCharactersTitle = 40 - editedProduct.title.length;
+
+  // Contabilizar os caracteres digitados da descrição
+  const remainingCharactersDescription = 403 - editedProduct.description.length;
 
   return (
     <>
@@ -266,7 +273,7 @@ function ShowFormEdit({
           handleClearForm={handleClearFile}
         />
       )}
-      <article className="absolute w-[100%] flex-col inset-0 flex items-center justify-center z-50 bg-white pt-28">
+      <article className="absolute w-[100%] h-[100%] flex-col inset-1 flex items-center justify-center z-[55] bg-white pt-[16rem]">
         <article className="w-[50%] max-[1024px]:w-[80%] max-[1024px]:ml-[30%] max-[855px]:ml-[0] flex flex-col items-start gap-4 mt-10 mb-10">
           <h2 className="text-6xl max-[420px]:text-4xl font-bold uppercase drop-shadow-xl">
             Editar produto
@@ -313,6 +320,7 @@ function ShowFormEdit({
               placeholder="Nome do produto"
               required
             />
+            <p>Caracteres restantes: {remainingCharactersTitle}</p>
           </label>
 
           {/*Input da descrição do produto*/}
@@ -327,7 +335,7 @@ function ShowFormEdit({
               className="w-full border-b-[3px] border-gray-400 rounded-lg shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
               placeholder="Descrição do produto"
             ></textarea>
-            <p>Caracteres restantes: {remainingCharacters}</p>
+            <p>Caracteres restantes: {remainingCharactersDescription}</p>
           </label>
 
           {/*Input do preço do produto*/}

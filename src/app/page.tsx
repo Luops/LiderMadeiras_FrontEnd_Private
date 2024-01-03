@@ -13,13 +13,13 @@ export default function Home() {
     <>
       <main className="w-full flex flex-col items-center justify-center antialiased mb-5 !pt-0">
         {/*Sobre*/}
-        <SectionAbout/>
+        <SectionAbout />
         {/*Localização e Entregas*/}
-        <SectionLocation/>
+        <SectionLocation />
         {/*Container focando na promoção Lider */}
-        <SectionBannerPromo/>
+        <SectionBannerPromo />
         {/*Produtos e Lista de Categorias*/}
-        <SectionProducts id="produtos"/>
+        <SectionProducts id="produtos" />
       </main>
     </>
   );

@@ -1,8 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
+import counterReducer from './reducer';
+
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    counter: counterReducer // Aqui você define o reducer para a chave 'counter'
+  },
   devTools: true
 })
 

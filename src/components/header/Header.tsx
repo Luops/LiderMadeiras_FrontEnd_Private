@@ -86,14 +86,12 @@ const Header = () => {
     setShowNavbar(!showNavbar);
   };
 
-  console.log("É mobile?", isMobile);
-
   return (
     <>
       <header
         className={
           isScrolled
-            ? `w-full sticky top-0 border-b shadow-[0px_0px_9px_1px_#1b191929] bg-white z-[43] px-[35px]`
+            ? `w-full fixed top-0 border-b shadow-[0px_0px_9px_1px_#1b191929] bg-white z-[50] px-[35px]`
             : `w-full px-[35px]`
         }
       >

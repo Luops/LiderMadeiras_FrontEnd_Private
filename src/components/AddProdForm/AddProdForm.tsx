@@ -125,6 +125,11 @@ function AddProdForm() {
 
       reader.readAsDataURL(file);
     } else {
+      // Verifica se o campo é title e limita a 40 caracteres
+      if (name === "title" && value.length > 40) {
+        return;
+      }
+
       // Verifica se o campo é descrição e limita a 403 caracteres
       if (name === "description" && value.length > 403) {
         return; // Não atualiza o estado se exceder 403 caracteres
@@ -224,8 +229,11 @@ function AddProdForm() {
     }
   }, [submitAttempted]);
 
-  // Contabilizar os caracteres digitados
-  const remainingCharacters = 403 - formData.description.length;
+  // Contabilizar os caracteres digitados do titulo
+  const remainingCharactersTitle = 40 - formData.title.length;
+
+  // Contabilizar os caracteres digitados da descrição
+  const remainingCharactersDescription = 403 - formData.description.length;
 
   return (
     <>
@@ -293,6 +301,7 @@ function AddProdForm() {
               placeholder="Nome do produto"
               required
             />
+            <p>Caracteres restantes: {remainingCharactersTitle}</p>
           </label>
 
           {/*Input da descrição do produto*/}
@@ -308,7 +317,7 @@ function AddProdForm() {
               placeholder="Descrição do produto"
               required
             ></textarea>
-            <p>Caracteres restantes: {remainingCharacters}</p>
+            <p>Caracteres restantes: {remainingCharactersDescription}</p>
           </label>
 
           {/*Input do preço do produto*/}

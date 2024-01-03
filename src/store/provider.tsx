@@ -9,7 +9,7 @@ import { User } from "@/models/User";
 import { Product } from "@/models/Product";
 
 import { store } from "./store";
-import { Provider } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 
 // Components
 import PrivateRoute from "@/components/privateRoute/PrivateRoute";
@@ -19,10 +19,10 @@ import { getUser } from "@/services/get-users";
 import { getProducts } from "@/services/get-products";
 
 const UserContext = React.createContext(null);
-
 export async function getStaticProps() {
   try {
     const cookies = parseCookies();
+    console.log("cookies", cookies);
     const userId = cookies.userId;
     let user = null;
     if (userId) {
@@ -49,16 +49,16 @@ export function Providers({ children }: { children: React.ReactNode }) {
   const [user, setUser] = React.useState<User | null>(null);
   const [products, setProducts] = React.useState<Product[]>([]);
   const router = useRouter();
-  const cookies = parseCookies();
 
   // Buscar usuário
   React.useEffect(() => {
+    const cookies = parseCookies();
     async function fetchUser() {
       const userId = cookies.userId;
       if (userId) {
         try {
           const response = await fetch(
-            `http://localhost:4000/api/user/${userId}`,
+            `https://lidermadeiras-api.onrender.com/api/user/${userId}`,
             {
               headers: {
                 Authorization: `${userId}`,

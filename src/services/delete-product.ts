@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Define a URL da sua API
-const API_URL = "http://localhost:4000";
+const API_URL = "https://lidermadeiras-api.onrender.com";
 
 export async function deleteProduct(_id: string) {
   try {

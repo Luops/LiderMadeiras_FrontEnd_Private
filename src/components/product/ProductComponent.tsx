@@ -60,7 +60,7 @@ const ProductComponent = ({
   const formattedPromoPrice = formatPriceWithThousandSeparator(promoPrice.toFixed(2));
 
   // Limite máximo de caracteres para title e description
-  const maxTitleLength = 30; // Defina o valor desejado
+  const maxTitleLength = 25; // Defina o valor desejado
 
   // Corte o título se ele exceder o limite e transforme a primeira letra maiuscula
   const truncatedTitle =
