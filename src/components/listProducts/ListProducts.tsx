@@ -21,18 +21,11 @@ type Product = {
   file: File | null;
 };
 
-const ListProducts = ({
-  _id,
-  title,
-  description,
-  price,
-  category,
-  unity,
-  isPromotion,
-  promoPrice,
-  url,
-  file,
-}: Product) => {
+type ListProductsProps = {
+  productsParam: Product[]; // Defina o tipo de products como um array de Product
+};
+
+const ListProducts: React.FC<ListProductsProps> = ({ productsParam }) => {
   const { products }: any = React.useContext(UserContext);
   const { user }: any = React.useContext(UserContext);
 
@@ -131,7 +124,6 @@ const ListProducts = ({
     };
   }, []);
 
-  console.log(url);
   return (
     <>
       {!user ? (
@@ -174,7 +166,7 @@ const ListProducts = ({
               ) : (
                 productsNotInPromotion.map((product: any) => (
                   <ProductView
-                    key={setSelectedProduct._id}
+                    key={product._id}
                     {...product}
                     _id={product._id}
                     setShowDetails={() => setSelectedProduct(product)}

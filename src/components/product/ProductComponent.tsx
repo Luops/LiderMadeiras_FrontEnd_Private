@@ -92,7 +92,7 @@ const ProductComponent = ({
           <img
             src={url}
             alt={truncatedTitle}
-            className="w-full border border-slate-300 rounded-lg shadow-2xl"
+            className="w-full max-h-[150px] border border-slate-300 rounded-lg shadow-2xl"
           />
         </picture>
         <h3 className="text-center text-sm font-semibold text-[#373737dd]">

@@ -49,7 +49,7 @@ export default function Login() {
   });
 
   // Enviar para Home caso haja userId nos cookies
-  if (userId) {
+  if (userId !== undefined) {
     // Atualizar a página
     window.location.reload();
 
@@ -106,7 +106,6 @@ export default function Login() {
                 <button
                   type="button"
                   onClick={() => setShowPassword((prev) => !prev)}
-                  edge="end"
                   aria-label="toggle password visibility"
                 >
                   {showPassword ? <PiEyeClosedBold /> : <FaEye />}

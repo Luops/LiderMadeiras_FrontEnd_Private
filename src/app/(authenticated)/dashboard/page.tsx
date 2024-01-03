@@ -14,21 +14,27 @@ import ListProducts from "../../../components/listProducts/ListProducts";
 import AddProdForm from "../../../components/addProdForm/AddProdForm";
 import PrivateRoute from "@/components/privateRoute/PrivateRoute";
 
+type Product = {
+  _id: string;
+  title: string;
+  description: string;
+  price: string;
+  category: string;
+  unity: string;
+  isPromotion: boolean;
+  promoPrice: string;
+  url: string;
+  file: File | null;
+};
+
+
 function Dashboard() {
   // State para controlar a seção ativa
   const [activeSection, setActiveSection] = React.useState("produtos");
 
-  // Renderizar componente de acordo com a seção ativa
-  const renderSection = () => {
-    switch (activeSection) {
-      case "produtos":
-        return <ListProducts />;
-      case "addProduct":
-        return <AddProdForm />;
-      default:
-        return null;
-    }
-  };
+  // Obtendo o contexto para produtos
+  const { products }:any = React.useContext(UserContext);
+
   return (
     <>
       <PrivateRoute>
@@ -36,7 +42,11 @@ function Dashboard() {
           <AsideDash setActiveSection={setActiveSection} />
           <article className="flex-1 flex flex-col items-center">
             {/* Conteudo da pagina */}
-            {renderSection()}
+            {activeSection === "produtos" ? (
+              <ListProducts productsParam={{ ...products }} />
+            ) : (
+              <AddProdForm />
+            )}
           </article>
         </main>
       </PrivateRoute>

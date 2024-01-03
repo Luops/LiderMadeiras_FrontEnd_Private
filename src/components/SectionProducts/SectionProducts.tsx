@@ -27,18 +27,11 @@ type Product = {
   file: string;
 };
 
-function SectionProducts({
-  _id,
-  title,
-  description,
-  price,
-  category,
-  unity,
-  isPromotion,
-  promoPrice,
-  url,
-  file,
-}: Product) {
+type ListProductsProps = {
+  productsParam: Product[]; // Defina o tipo de products como um array de Product
+};
+
+const SectionProducts: React.FC<ListProductsProps> = ({ productsParam } ) => {
   // State para selecionar o input de promoção
   const [showPromotion, setShowPromotion] = React.useState(false);
 

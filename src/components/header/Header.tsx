@@ -91,7 +91,7 @@ const Header = () => {
       <header
         className={
           isScrolled
-            ? `w-full fixed top-0 border-b shadow-[0px_0px_9px_1px_#1b191929] bg-white z-[50] px-[35px]`
+            ? `w-full fixed top-0 border-b shadow-[0px_0px_9px_1px_#1b191929] bg-white z-[51] px-[35px]`
             : `w-full px-[35px]`
         }
       >

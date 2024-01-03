@@ -49,7 +49,7 @@ function AddProdForm() {
   const [submitAttempted, setSubmitAttempted] = React.useState(false);
 
   // Ref do file (imagem) do input
-  const fileInputRef = React.useRef(null);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   // Função de submit
   const handleSubmit = async (e: any) => {
@@ -64,7 +64,7 @@ function AddProdForm() {
       formDataToSend.append("price", formData.price);
       formDataToSend.append("category", formData.category);
       formDataToSend.append("unity", formData.unity);
-      formDataToSend.append("isPromotion", formData.isPromotion);
+      formDataToSend.append("isPromotion", formData.isPromotion.toString());
 
       // Se a promoção estiver marcada, armazene o valor da promoção
       if (formData.isPromotion && formData.promoPrice !== "") {
@@ -77,7 +77,9 @@ function AddProdForm() {
         formDataToSend.append("promoPrice", "0");
       }
 
-      formDataToSend.append("file", formData.file);
+      if (formData.file instanceof File) {
+        formDataToSend.append("file", formData.file);
+      }
 
       // Faça uma chamada para a API do backend com os dados do formulário
       const response = await api.post("/api/product", formDataToSend, {
@@ -240,6 +242,7 @@ function AddProdForm() {
       {/* Se o modal de preview da imagem estiver visível, mostre-o */}
       {showImageModal && (
         <ShowImageForm
+          _id={""}
           setShowImageModal={setShowImageModal}
           handleClearFile={handleClearFile}
           previewImage={previewImage}

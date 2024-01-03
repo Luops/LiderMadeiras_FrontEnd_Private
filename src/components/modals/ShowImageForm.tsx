@@ -31,7 +31,7 @@ const ShowImageForm = ({
 }) => {
   return (
     <>
-      <div className="fixed inset-0 flex items-center justify-center z-[51] shadow-2xl">
+      <div className="fixed inset-0 flex items-center justify-center z-[60] shadow-2xl">
         <div className="relative flex flex-col items-center justify-center bg-white p-4 border rounded-lg shadow-lg gap-3">
           <button
             onClick={() => {

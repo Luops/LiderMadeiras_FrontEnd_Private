@@ -207,7 +207,7 @@ function ProductView({
         />
       )}
       {editingProduct ? (
-        <article className="w-full h-full absolute bg-white"></article>
+        <article className="w-full fixed left-0 h-full bg-white"></article>
       ) : (
         <article
           className={`flex flex-col text-start py-1 mx-2 gap-3 border-b border-[#fe902273] !h-[130px] max-[620px]:!h-[150px] `}
