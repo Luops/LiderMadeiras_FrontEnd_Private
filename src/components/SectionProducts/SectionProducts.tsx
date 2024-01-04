@@ -221,7 +221,7 @@ const SectionProducts: React.FC<ListProductsProps> = ({ productsParam } ) => {
   }, []);
 
   return (
-    <section id="produtos" className="relative w-[87%] max-[940px]:w-[93%] max-[869px]:w-full flex max-[869px]:flex-col items-start justify-between max-[869px]:px-5 max-[869px]:mb-24">
+    <section id="produtos" className="relative w-[87%] max-[940px]:w-[93%] max-[869px]:w-full flex max-[869px]:flex-col items-start justify-between max-[869px]:mb-24">
       {/*Container do botão de filtros em mobile (<= 869px) */}
       <div className="w-full flex z-[41] items-center justify-center min-[870px]:hidden mb-5 pb-2 border-b">
         <button
@@ -254,7 +254,7 @@ const SectionProducts: React.FC<ListProductsProps> = ({ productsParam } ) => {
           categoriesMobile
             ? "opacity-100 translate-y-0 "
             : "opacity-0 -translate-y-full"
-        } absolute min-[870px]:hidden w-full top-[35px] z-[40] flex p-3 gap-4 bg-white bg-gradient-to-r from-[#fe902203] to-orange-50 border-b drop-shadow-[0px_0px_2px_1px_#1b1919b] font-semibold transition-height duration-300 ease-in-out overflow-hidden`}
+        } absolute min-[870px]:hidden w-[100%] top-[35px] z-[40] flex p-3 gap-4 bg-white bg-gradient-to-r from-[#fe902203] to-orange-50 border-b drop-shadow-[0px_0px_2px_1px_#1b1919b] font-semibold transition-height duration-300 ease-in-out overflow-hidden`}
       >
         {/*Categoria promoção (promoção ou não) */}
         <div className="flex flex-col w-[25%]">
