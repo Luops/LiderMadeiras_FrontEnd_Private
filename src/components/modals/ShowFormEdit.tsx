@@ -105,9 +105,9 @@ function ShowFormEdit({
       if (name === "title" && value.length > 40) {
         return;
       }
-      // Verifica se o campo é descrição e limita a 403 caracteres
-      if (name === "description" && value.length > 403) {
-        return; // Não atualiza o estado se exceder 403 caracteres
+      // Verifica se o campo é descrição e limita a 350 caracteres
+      if (name === "description" && value.length > 350) {
+        return; // Não atualiza o estado se exceder 350 caracteres
       }
       // Se o campo for de preço ou promoção, verifique se o valor é um número
       setEditedProduct((prevData) => {
@@ -121,7 +121,7 @@ function ShowFormEdit({
 
         // Verifica o comprimento atual da descrição
         const updatedDescription =
-          name === "description" ? value.substring(0, 403) : value;
+          name === "description" ? value.substring(0, 350) : value;
 
         // Para outros campos de entrada, armazene o valor normalmente
         return {
@@ -253,7 +253,7 @@ function ShowFormEdit({
   const remainingCharactersTitle = 40 - editedProduct.title.length;
 
   // Contabilizar os caracteres digitados da descrição
-  const remainingCharactersDescription = 403 - editedProduct.description.length;
+  const remainingCharactersDescription = 350 - editedProduct.description.length;
 
   return (
     <>

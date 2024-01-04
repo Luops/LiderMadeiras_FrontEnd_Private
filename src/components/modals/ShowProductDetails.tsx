@@ -90,7 +90,7 @@ const ShowProductDetails = ({
   return (
     <>
       <div className={`inset-0 fixed flex items-center justify-center z-[60]`}>
-        <article className="flex flex-col items-center justify-center w-[650px] max-[1110px]:w-[580px] max-[680px]:w-[400px] max-[480px]:w-[320px] h-[600px] max-[480px]:h-[580px] text-start bg-white rounded-[4px] drop-shadow-xl border-[0.5px] border-neutral-200">
+        <article className="relative flex flex-col items-center justify-center w-[650px] max-[1110px]:w-[580px] max-[680px]:w-[400px] max-[480px]:w-[320px] h-[600px] max-[480px]:h-[580px] text-start bg-white rounded-[4px] drop-shadow-xl border-[0.5px] border-neutral-200">
           {/*Botão para fechar o modal*/}
           <button
             onClick={() => {
