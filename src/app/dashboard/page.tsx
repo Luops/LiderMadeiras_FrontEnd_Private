@@ -1,14 +1,20 @@
 "use client";
 import React from "react";
+import dynamic from "next/dynamic";
 
 // Context
 import UserContext from "@/store/provider";
 
 // Components
 import AsideDash from "@/components/aside/AsideDash";
-import ListProducts from "@/components/listProducts/ListProducts";
-import AddProdForm from "@/components/addProdForm/AddProdForm";
 import PrivateRoute from "@/components/privateRoute/PrivateRoute";
+
+const ListProducts = dynamic(
+  () => import("@/components/listProducts/ListProducts")
+);
+const AddProdForm = dynamic(
+  () => import("@/components/addProdForm/AddProdForm")
+);
 
 type Product = {
   _id: string;
@@ -37,10 +43,15 @@ export default function Dashboard() {
           <AsideDash setActiveSection={setActiveSection} />
           <article className="flex-1 flex flex-col items-center">
             {/* Conteudo da pagina */}
-            {activeSection === "produtos" ? (
-              <ListProducts productsParam={{ ...products }} />
-            ) : (
-              <AddProdForm />
+            {typeof window !== 'undefined' && (
+              <>
+                {activeSection === "produtos" && (
+                  <ListProducts productsParam={{ ...products }} />
+                )}
+                {activeSection !== "produtos" && (
+                  <AddProdForm />
+                )}
+              </>
             )}
           </article>
         </main>
