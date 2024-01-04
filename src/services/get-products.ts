@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Define a URL da sua API
-const API_URL = "http://lidermadeiras-api.onrender.com";
+const API_URL = "https://lidermadeiras-api.onrender.com";
 
 // Define a função para buscar todos os produtos
 export async function getProducts() {
