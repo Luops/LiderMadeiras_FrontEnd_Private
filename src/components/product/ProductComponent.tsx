@@ -20,7 +20,7 @@ type Product = {
 };
 
 // Transforma o primeiro caractere de uma string em maiúsculo
-function capitalizeFirstLetter(text) {
+function capitalizeFirstLetter(text: string) {
   return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
 }
 
@@ -43,8 +43,8 @@ const ProductComponent = ({
   const [showDetails, setShowDetails] = React.useState(false);
 
   // Função para formatar o preço
-  const formatPriceWithThousandSeparator = (price) => {
-    const [integerPart, decimalPart] = price.toString().split(".");
+  const formatPriceWithThousandSeparator = (price: number) => {
+    const [integerPart, decimalPart] = price.toFixed(2).split(".");
     const integerWithSeparator = integerPart.replace(
       /\B(?=(\d{3})+(?!\d))/g,
       "."
@@ -53,11 +53,15 @@ const ProductComponent = ({
       ? `${integerWithSeparator},${decimalPart}`
       : integerWithSeparator;
   };
-  // Formatar o preço
-  const formattedPrice = formatPriceWithThousandSeparator(price.toFixed(2));
+  // Preço é uma string e precisa ser convertido para número antes de usar o toFixed
+  const numericPrice = parseFloat(price);
+  const formattedPrice = formatPriceWithThousandSeparator(numericPrice);
 
-  // Formatar o preço da promo
-  const formattedPromoPrice = formatPriceWithThousandSeparator(promoPrice.toFixed(2));
+  // Formatar o preço da promoção
+  // Preço é uma string e precisa ser convertido para número antes de usar o toFixed
+  const numericPromoPrice = parseFloat(promoPrice);
+  const formattedPromoPrice =
+    formatPriceWithThousandSeparator(numericPromoPrice);
 
   // Limite máximo de caracteres para title e description
   const maxTitleLength = 25; // Defina o valor desejado
@@ -82,7 +86,6 @@ const ProductComponent = ({
           isPromotion={isPromotion}
           promoPrice={promoPrice}
           url={url}
-          file={file}
           setShowDetails={setShowDetails}
         />
       )}

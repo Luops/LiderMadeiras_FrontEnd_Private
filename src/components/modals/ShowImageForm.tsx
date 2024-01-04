@@ -21,14 +21,19 @@ type Product = {
   promoPrice: string;
   url: string;
   file: File | null;
+  setEditingProduct: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowImageModal: React.Dispatch<React.SetStateAction<boolean>>;
+  previewImage: string;
+  handleClearFile: () => void;
 };
 
 const ShowImageForm = ({
   setShowImageModal,
   previewImage,
   handleClearFile,
+  setEditingProduct,
   _id,
-}) => {
+}: Product) => {
   return (
     <>
       <div className="fixed inset-0 flex items-center justify-center z-[60] shadow-2xl">

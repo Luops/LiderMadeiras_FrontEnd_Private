@@ -83,7 +83,7 @@ const SectionProducts: React.FC<ListProductsProps> = ({ productsParam } ) => {
   }, []); // Executa apenas uma vez ao montar o componente
 
   // Função para manipular a seleção/desseleção das categorias
-  const handleCategoryChange = async (category: string) => {
+  const handleCategoryChange = async (category: any) => {
     const { value } = category; // Obtém apenas o valor da categoria selecionada
 
     let updatedCategories = [];
@@ -151,7 +151,7 @@ const SectionProducts: React.FC<ListProductsProps> = ({ productsParam } ) => {
   };
 
   // Função para obter o nome da categoria formatado removendo o '_'
-  const getCategoryName = (category) => {
+  const getCategoryName = (category: string) => {
     return category.replace(/_/g, " ");
   };
 
@@ -275,7 +275,7 @@ const SectionProducts: React.FC<ListProductsProps> = ({ productsParam } ) => {
         <div className="flex flex-col w-[75%]">
           <h3 className="text-lg font-inder font-bold">Categoria</h3>
           <div className="w-full flex flex-wrap gap-3">
-            {categories.map((category: string) => (
+            {categories.map((category: any) => (
               <label key={category} className="flex items-center mt-3">
                 <input
                   type="checkbox"
@@ -311,7 +311,7 @@ const SectionProducts: React.FC<ListProductsProps> = ({ productsParam } ) => {
           {/*Categorias (promoção ou não) */}
           <div className="flex flex-col mt-5">
             <h3 className="text-lg font-inder font-bold">Categoria</h3>
-            {categories.map((category: string) => (
+            {categories.map((category:any) => (
               <label key={category} className="flex items-center mt-3">
                 <input
                   type="checkbox"

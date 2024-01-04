@@ -6,7 +6,6 @@ export interface Image {
     url: { type: String };
     createdAt: {
       type: Date;
-      default: Date.now;
     };
   }
   

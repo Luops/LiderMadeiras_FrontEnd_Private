@@ -1,6 +1,6 @@
 import React from "react";
 
-const ShowSuccessForm = ({ setShowSuccessModal, handleClearForm }) => {
+const ShowSuccessForm = ({ setShowSuccessModal, handleClearForm }: any) => {
   return (
     <>
       <div className="fixed inset-0 flex items-center justify-center z-[56]">

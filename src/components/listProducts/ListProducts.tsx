@@ -31,7 +31,9 @@ const ListProducts: React.FC<ListProductsProps> = ({ productsParam }) => {
 
   // State para abrir o modal de detalhes do produto
   const [showDetails, setShowDetails] = React.useState(false);
-  const [selectedProduct, setSelectedProduct] = React.useState(null);
+  const [selectedProduct, setSelectedProduct] = React.useState<Product | null>(
+    null
+  );
 
   // State para carregamento do componente
   const [isLoading, setIsLoading] = React.useState(false);
@@ -141,7 +143,7 @@ const ListProducts: React.FC<ListProductsProps> = ({ productsParam }) => {
                 <ShowProductDetails
                   key={selectedProduct._id}
                   {...selectedProduct}
-                  setShowDetails={setSelectedProduct}
+                  setShowDetails={() => setSelectedProduct(null)}
                 />
               ))}
             </>
@@ -157,9 +159,15 @@ const ListProducts: React.FC<ListProductsProps> = ({ productsParam }) => {
               {/*Retornar produtos que não sao promoções*/}
               {productsNotInPromotion.length == 0 ? (
                 <ProductView
+                  _id="Carregando..."
                   title="Carregando..."
                   description="Carregando..."
                   price="Carregando..."
+                  category="Carregando..."
+                  unity="Carregando..."
+                  isPromotion={false}
+                  promoPrice="Carregando..."
+                  file={null}
                   url="Carregando..."
                   setShowDetails={setShowDetails}
                 />
@@ -184,16 +192,22 @@ const ListProducts: React.FC<ListProductsProps> = ({ productsParam }) => {
               {/*Retornar produtos que sao promoções*/}
               {productsInPromotion.length == 0 ? (
                 <ProductView
+                  _id="Carregando..."
                   title="Carregando..."
                   description="Carregando..."
                   price="Carregando..."
+                  category="Carregando..."
+                  unity="Carregando..."
+                  isPromotion={false}
+                  promoPrice="Carregando..."
+                  file={null}
                   url="Carregando..."
                   setShowDetails={setShowDetails}
                 />
               ) : (
                 productsInPromotion.map((product: any) => (
                   <ProductView
-                    key={setSelectedProduct._id}
+                    key={product._id}
                     {...product}
                     setShowDetails={() => setSelectedProduct(product)}
                     _id={product._id}

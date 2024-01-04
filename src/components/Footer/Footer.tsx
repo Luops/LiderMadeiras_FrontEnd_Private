@@ -21,7 +21,7 @@ function Footer({}: Props) {
   // State para ver se foi clicado em alguma opção do footer
   const [clicked, setClicked] = React.useState<string>("");
 
-  const handleNavigation = (sectionId) => {
+  const handleNavigation = (sectionId: string) => {
     const section = document.getElementById(sectionId);
 
     if (section) {

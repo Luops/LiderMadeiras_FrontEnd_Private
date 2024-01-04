@@ -11,7 +11,6 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 import { useFormik } from "formik";
-import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/store/store";
 import { fetchLogin } from "@/store/slices/authSlice";
 import { parseCookies } from "nookies";
@@ -23,12 +22,9 @@ import { PiEyeClosedBold } from "react-icons/pi";
 export default function Login() {
   // State para o loading do botão
   const [loading, setLoading] = React.useState(false);
-  const router = useRouter();
 
   // State para mostrar e esconder a senha
   const [showPassword, setShowPassword] = React.useState(false);
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = () => setShowPassword((show) => !show);
 
   // Selecionar o userId
   const cookies = parseCookies();
@@ -44,7 +40,7 @@ export default function Login() {
     onSubmit: async (values) => {
       console.log(values);
       setLoading(true);
-      await dispatch(fetchLogin(values));
+      await dispatch(fetchLogin({ email: values.email, password: values.password }));
     },
   });
 
@@ -60,16 +56,18 @@ export default function Login() {
   // Verificar se o botão esta carregando, e se estiver carregando e não for concluído em 4s, mostrar o botão
   React.useEffect(() => {
     if (loading && userId === undefined) {
-      setTimeout(() => {
+      const timeout = setTimeout(() => {
         setLoading(false);
       }, 4000);
+      return () => clearTimeout(timeout);
     }
-  });
+  }, [loading, userId]);
 
   return (
     <>
       <main className="w-full">
         <Box
+          onSubmit={formik.handleSubmit}
           className="flex flex-col items-center justify-center gap-5 max-[480px]:w-full w-[450px] px-[35px] py-[15px] mt-[15px]"
           component="form"
           noValidate

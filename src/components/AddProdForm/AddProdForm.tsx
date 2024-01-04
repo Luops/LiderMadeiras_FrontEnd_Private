@@ -45,6 +45,8 @@ function AddProdForm() {
   const [showImageModal, setShowImageModal] = React.useState(false);
   const [previewImage, setPreviewImage] = React.useState("");
 
+  const [editingProduct, setEditingProduct] = React.useState(false);
+
   // State ao apertar o botao de enviar
   const [submitAttempted, setSubmitAttempted] = React.useState(false);
 
@@ -243,6 +245,16 @@ function AddProdForm() {
       {showImageModal && (
         <ShowImageForm
           _id={""}
+          title={""}
+          description={""}
+          price={""}
+          category={""}
+          unity={""}
+          isPromotion={false}
+          promoPrice={""}
+          url={""}
+          file={null}
+          setEditingProduct={setEditingProduct}
           setShowImageModal={setShowImageModal}
           handleClearFile={handleClearFile}
           previewImage={previewImage}
@@ -293,7 +305,7 @@ function AddProdForm() {
           </label>
 
           {/*Input do título do produto*/}
-          <label htmlFor="title" className="w-full border rounded-lg">
+          <label htmlFor="title" className="w-full rounded-lg">
             <input
               type="text"
               name="title"
@@ -312,8 +324,8 @@ function AddProdForm() {
             <textarea
               name="description"
               id="description"
-              cols="30"
-              rows="5"
+              cols={30}
+              rows={5}
               value={formData.description}
               onChange={handleInputChange}
               className="w-full border-b-[3px] border-gray-400 rounded-lg shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
@@ -375,11 +387,11 @@ function AddProdForm() {
                 id="category"
                 value={formData.category}
                 onChange={handleInputChange}
-                className="w-full inline flex items-center gap-3 rounded-lg text-[rgba(0,0,0,0.5)] shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 border-b-[3px] border-gray-400 focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
+                className="w-full flex items-center gap-3 rounded-lg text-[rgba(0,0,0,0.5)] shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 border-b-[3px] border-gray-400 focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
                 required
               >
                 <option value="">Categoria</option>
-                {categories.map((category: string) => (
+                {categories.map((category) => (
                   <option key={category.id} value={category.value}>
                     {category.name}
                   </option>
@@ -396,7 +408,7 @@ function AddProdForm() {
                 required
               >
                 <option value="">Unidade</option>
-                {unitys.map((unity: string) => (
+                {unitys.map((unity) => (
                   <option key={unity.id} value={unity.value}>
                     {unity.name}
                   </option>

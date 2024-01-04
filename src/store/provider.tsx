@@ -18,7 +18,18 @@ import PrivateRoute from "@/components/privateRoute/PrivateRoute";
 import { getUser } from "@/services/get-users";
 import { getProducts } from "@/services/get-products";
 
-const UserContext = React.createContext(null);
+interface UserContextProps {
+  user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  products: Product[];
+}
+
+const UserContext = React.createContext<UserContextProps>({
+  user: null,
+  setUser: () => null,
+  products: [],
+});
+
 export async function getStaticProps() {
   try {
     const cookies = parseCookies();
@@ -48,7 +59,6 @@ export async function getStaticProps() {
 export function Providers({ children }: { children: React.ReactNode }) {
   const [user, setUser] = React.useState<User | null>(null);
   const [products, setProducts] = React.useState<Product[]>([]);
-  const router = useRouter();
 
   // Buscar usuário
   React.useEffect(() => {
@@ -61,7 +71,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
             `https://lidermadeiras-api.onrender.com/api/user/${userId}`,
             {
               headers: {
-                Authorization: `${userId}`,
+                Authorization: `Bearer ${userId}`,
               },
             }
           );
@@ -93,10 +103,12 @@ export function Providers({ children }: { children: React.ReactNode }) {
     fetchProducts();
   }, []);
 
+  console.log("user", user);
+
   return (
-    <UserContext.Provider value={{ user, setUser, products }}>
+    <UserContext.Provider value={{ setUser, user, products }}>
       <Provider store={store}>
-        <PrivateRoute router={router}>{children}</PrivateRoute>
+        <PrivateRoute>{children}</PrivateRoute>
       </Provider>
     </UserContext.Provider>
   );

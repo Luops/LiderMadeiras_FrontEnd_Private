@@ -44,7 +44,7 @@ function ShowFormEdit({
   const [isSent, setIsSent] = React.useState(false);
   const [isSentImage, setIsSentImage] = React.useState(false);
   const [error, setError] = React.useState("");
-  const fileInputRef = useRef(null);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   const [editedProduct, setEditedProduct] = React.useState({
     id: _id,
@@ -72,8 +72,8 @@ function ShowFormEdit({
   const [submitAttempted, setSubmitAttempted] = React.useState(false);
 
   // Condição de validação dos inputs
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, files, type, checked } = e.target;
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value, files, type, checked }: any = e.target;
 
     if (type === "checkbox") {
       // Se o campo for uma checkbox, armazene o valor da checkbox
@@ -89,20 +89,22 @@ function ShowFormEdit({
       });
 
       // Exiba o modal de preview da imagem
-      const file = files[0];
-      const reader = new FileReader();
+      if (files && files.length > 0) {
+        const file = files[0];
+        const reader = new FileReader();
 
-      reader.onload = (e: any) => {
-        setPreviewImage(e.target.result);
-        setShowImageModal(true);
-      };
+        reader.onload = (e: any) => {
+          setPreviewImage(e.target.result);
+          setShowImageModal(true);
+        };
 
-      reader.readAsDataURL(file);
+        reader.readAsDataURL(file);
+      }
     } else {
       // Verificar se o campo é title e limitar a 40 caracteres
       if (name === "title" && value.length > 40) {
         return;
-      } 
+      }
       // Verifica se o campo é descrição e limita a 403 caracteres
       if (name === "description" && value.length > 403) {
         return; // Não atualiza o estado se exceder 403 caracteres
@@ -262,7 +264,16 @@ function ShowFormEdit({
           handleClearFile={handleClearFile}
           previewImage={editedProduct.url}
           _id={_id}
-          {...editedProduct}
+          title={""}
+          description={""}
+          price={""}
+          category={""}
+          unity={""}
+          isPromotion={false}
+          promoPrice={""}
+          url={""}
+          file={null}
+          setEditingProduct={setEditingProduct}
         />
       )}
 
@@ -309,7 +320,7 @@ function ShowFormEdit({
           </label>
 
           {/*Input do título do produto*/}
-          <label htmlFor="title" className="w-full border rounded-lg">
+          <label htmlFor="title" className="w-full rounded-lg">
             <input
               type="text"
               name="title"
@@ -328,8 +339,8 @@ function ShowFormEdit({
             <textarea
               name="description"
               id="description"
-              cols="30"
-              rows="5"
+              cols={30}
+              rows={5}
               value={editedProduct.description}
               onChange={handleInputChange}
               className="w-full border-b-[3px] border-gray-400 rounded-lg shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
@@ -389,10 +400,10 @@ function ShowFormEdit({
                 id="category"
                 value={editedProduct.category}
                 onChange={handleInputChange}
-                className="w-full inline flex items-center gap-3 rounded-lg text-[rgba(0,0,0,0.5)] shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 border-b-[3px] border-gray-400 focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
+                className="w-full flex items-center gap-3 rounded-lg text-[rgba(0,0,0,0.5)] shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 border-b-[3px] border-gray-400 focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
               >
                 <option value="">Categoria</option>
-                {categories.map((category: string) => (
+                {categories.map((category) => (
                   <option key={category.id} value={category.value}>
                     {category.name}
                   </option>
@@ -408,7 +419,7 @@ function ShowFormEdit({
                 className="w-full flex items-center gap-3 rounded-lg text-[rgba(0,0,0,0.5)] shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 border-b-[3px] border-gray-400 focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
               >
                 <option value="">Unidade</option>
-                {unitys.map((unity: string) => (
+                {unitys.map((unity) => (
                   <option key={unity.id} value={unity.value}>
                     {unity.name}
                   </option>

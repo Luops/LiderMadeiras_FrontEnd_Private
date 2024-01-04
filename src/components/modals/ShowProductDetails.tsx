@@ -19,7 +19,6 @@ type Product = {
   isPromotion: boolean;
   promoPrice: string;
   url: string;
-  file: File | null;
   setShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -33,7 +32,6 @@ const ShowProductDetails = ({
   isPromotion,
   promoPrice,
   url,
-  file,
   setShowDetails,
 }: Product) => {
   // Fazer com que a primeira letra seja maiuscula
@@ -65,8 +63,8 @@ const ShowProductDetails = ({
   const unityTransformed = unityTransform(unity);
 
   // Função para formatar o preço
-  const formatPriceWithThousandSeparator = (price) => {
-    const [integerPart, decimalPart] = price.toString().split(".");
+  const formatPriceWithThousandSeparator = (price: number) => {
+    const [integerPart, decimalPart] = price.toFixed(2).split(".");
     const integerWithSeparator = integerPart.replace(
       /\B(?=(\d{3})+(?!\d))/g,
       "."
@@ -75,13 +73,15 @@ const ShowProductDetails = ({
       ? `${integerWithSeparator},${decimalPart}`
       : integerWithSeparator;
   };
-  // Formatar o preço
-  const formattedPrice = formatPriceWithThousandSeparator(price.toFixed(2));
+  // Preço é uma string e precisa ser convertido para número antes de usar o toFixed
+  const numericPrice = parseFloat(price);
+  const formattedPrice = formatPriceWithThousandSeparator(numericPrice);
 
   // Formatar o preço da promoção
-  const formattedPromoPrice = formatPriceWithThousandSeparator(
-    promoPrice.toFixed(2)
-  );
+  // Preço é uma string e precisa ser convertido para número antes de usar o toFixed
+  const numericPromoPrice = parseFloat(promoPrice);
+  const formattedPromoPrice =
+    formatPriceWithThousandSeparator(numericPromoPrice);
 
   // link para os contatos
   const facebookLink = `https://www.facebook.com/LiderMadeirasGravatai?locale=pt_BR`;
@@ -89,7 +89,7 @@ const ShowProductDetails = ({
 
   return (
     <>
-      <div className={`inset-0 fixed flex items-center justify-center z-50`}>
+      <div className={`inset-0 fixed flex items-center justify-center z-[60]`}>
         <article className="flex flex-col items-center justify-center w-[650px] max-[1110px]:w-[580px] max-[680px]:w-[400px] max-[480px]:w-[320px] h-[600px] max-[480px]:h-[580px] text-start bg-white rounded-[4px] drop-shadow-xl border-[0.5px] border-neutral-200">
           {/*Botão para fechar o modal*/}
           <button
@@ -131,15 +131,22 @@ const ShowProductDetails = ({
                 {isPromotion ? (
                   <div className="flex flex-col">
                     <p className="text-2xl max-[820px]:text-xl max-[680px]:text-lg font-semibold text-[#757575]">
-                      De: R$ {formattedPrice} <span className="text-sm">{unityTransformed}</span>
+                      De: R$ {formattedPrice}{" "}
+                      <span className="text-sm">{unityTransformed}</span>
                     </p>
                     <p className="text-4xl max-[680px]:text-2xl font-bold bg-gradient-to-r from-[#FE9022] to-orange-500 bg-clip-text text-transparent">
-                      Por: R$ {formattedPromoPrice} <span className="text-sm min-[480px]:text-2xl">{unityTransformed}</span>
+                      Por: R$ {formattedPromoPrice}{" "}
+                      <span className="text-sm min-[480px]:text-2xl">
+                        {unityTransformed}
+                      </span>
                     </p>
                   </div>
                 ) : (
                   <p className="text-4xl max-[680px]:text-3xl font-bold bg-gradient-to-r from-[#FE9022] to-orange-500 bg-clip-text text-transparent">
-                    R$ {formattedPrice} <span className="text-[1rem] min-[480px]:text-2xl">{unityTransformed}</span>
+                    R$ {formattedPrice}{" "}
+                    <span className="text-[1rem] min-[480px]:text-2xl">
+                      {unityTransformed}
+                    </span>
                   </p>
                 )}
               </div>

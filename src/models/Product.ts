@@ -13,6 +13,5 @@ export interface Product {
   url: { type: String };
   createdAt: {
     type: Date;
-    default: Date.now;
   };
 }

@@ -17,7 +17,7 @@ type Product = {
 };
 
 // Transforma o primeiro caractere de uma string em maiúsculo
-function capitalizeFirstLetter(text) {
+function capitalizeFirstLetter(text: string) {
   return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
 }
 

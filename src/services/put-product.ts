@@ -30,7 +30,7 @@ export async function putProduct(_id: string, updatedProductData: any) {
 }
 
 // Função para fazer o upload da nova imagem
-export async function uploadNewImage(file) {
+export async function uploadNewImage(file:any ){
   try {
     // Crie um objeto FormData para enviar o arquivo
     const formData = new FormData();

@@ -11,7 +11,11 @@ import ShowProductDetails from "../modals/ShowProductDetails";
 import { MdArrowForwardIos } from "react-icons/md";
 import { MdArrowBackIos } from "react-icons/md";
 
-const AsideDash = ({ setActiveSection }) => {
+type AsideDashProps = {
+  setActiveSection: (section: string) => void;
+};
+
+const AsideDash = ({ setActiveSection }:AsideDashProps) => {
   // Dados do usuário
   const { user }: any = React.useContext(UserContext);
 

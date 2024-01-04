@@ -66,12 +66,12 @@ function formatProductPromoPrice(promoPrice: string): string {
 }
 
 // Transforma o primeiro caractere de uma string em maiúsculo
-function capitalizeFirstLetter(text) {
+function capitalizeFirstLetter(text: string) {
   return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
 }
 
 // Transforma o primeiro caractere de uma string após um ponto em minúsculo
-function capitalizeAfterPeriod(text) {
+function capitalizeAfterPeriod(text: string) {
   return text.replace(
     /\. [a-z]/g,
     (match) => `. ${match.charAt(2).toUpperCase()}`
@@ -79,7 +79,7 @@ function capitalizeAfterPeriod(text) {
 }
 
 // Transforma o primeiro caractere de uma string em maiúsculo após um ponto
-function formatDescription(text) {
+function formatDescription(text: string) {
   const firstUpperCase = capitalizeFirstLetter(text);
   const result = capitalizeAfterPeriod(firstUpperCase);
   return result;
@@ -159,6 +159,7 @@ function ProductView({
       promoPrice,
       url,
       file,
+      setShowDetails,
     });
   };
 
@@ -197,13 +198,20 @@ function ProductView({
           setShowDeleteModal={setShowDeleteModal}
           title={title}
           _id={_id}
+          description={description}
+          price={price}
+          category={category}
+          unity={unity}
+          isPromotion={isPromotion}
+          promoPrice={promoPrice}
+          url={url}
         />
       )}
       {editingProduct && (
         <ShowFormEdit
           {...editingProduct}
           _id={_id}
-          setEditingProduct={setEditingProduct}
+          setEditingProduct={() => setEditingProduct(false)}
         />
       )}
       {editingProduct ? (

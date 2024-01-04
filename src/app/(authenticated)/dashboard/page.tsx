@@ -27,15 +27,15 @@ type Product = {
   file: File | null;
 };
 
-
 function Dashboard() {
   // State para controlar a seção ativa
   const [activeSection, setActiveSection] = React.useState("produtos");
 
   // Obtendo o contexto para produtos
-  const { products }:any = React.useContext(UserContext);
+  const { products }: any = React.useContext(UserContext);
 
   return (
+    
     <>
       <PrivateRoute>
         <main className="w-full h-screen flex">
