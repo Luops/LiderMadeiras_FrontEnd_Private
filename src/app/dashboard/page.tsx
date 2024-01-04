@@ -1,17 +1,13 @@
 "use client";
 import React from "react";
 
-// Next Components
-import { useRouter } from "next/router";
-import { useContext } from "react";
-
 // Context
 import UserContext from "@/store/provider";
 
 // Components
 import AsideDash from "@/components/aside/AsideDash";
-import ListProducts from "../../../components/listProducts/ListProducts";
-import AddProdForm from "../../../components/addProdForm/AddProdForm";
+import ListProducts from "@/components/listProducts/ListProducts";
+import AddProdForm from "@/components/addProdForm/AddProdForm";
 import PrivateRoute from "@/components/privateRoute/PrivateRoute";
 
 type Product = {
@@ -27,7 +23,7 @@ type Product = {
   file: File | null;
 };
 
-function Dashboard() {
+export default function Dashboard() {
   // State para controlar a seção ativa
   const [activeSection, setActiveSection] = React.useState("produtos");
 
@@ -35,7 +31,6 @@ function Dashboard() {
   const { products }: any = React.useContext(UserContext);
 
   return (
-    
     <>
       <PrivateRoute>
         <main className="w-full h-screen flex">
@@ -53,5 +48,3 @@ function Dashboard() {
     </>
   );
 }
-
-export default Dashboard;
