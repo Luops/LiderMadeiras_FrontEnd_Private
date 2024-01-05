@@ -284,7 +284,7 @@ function ShowFormEdit({
           handleClearForm={handleClearFile}
         />
       )}
-      <article className="absolute w-full h-[150%] flex-col inset-[0] flex items-center justify-center z-[55] bg-white">
+      <article className="absolute w-full h-[200%] flex-col inset-[0] flex items-center justify-center z-[55] bg-white">
         <article className="w-[50%] max-[1024px]:w-[80%] max-[1024px]:ml-[30%] max-[855px]:ml-[0] flex flex-col items-start gap-4 mt-10 mb-10">
           <h2 className="text-6xl max-[420px]:text-4xl font-bold uppercase drop-shadow-xl">
             Editar produto
