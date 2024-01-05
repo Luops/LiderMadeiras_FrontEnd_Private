@@ -134,9 +134,9 @@ function AddProdForm() {
         return;
       }
 
-      // Verifica se o campo é descrição e limita a 350 caracteres
-      if (name === "description" && value.length > 350) {
-        return; // Não atualiza o estado se exceder 350 caracteres
+      // Verifica se o campo é descrição e limita a 300 caracteres
+      if (name === "description" && value.length > 300) {
+        return; // Não atualiza o estado se exceder 300 caracteres
       }
 
       // Se o campo for de preço ou promoção, verifique se o valor é um número
@@ -151,7 +151,7 @@ function AddProdForm() {
 
         // Verifica o comprimento atual da descrição
         const updatedDescription =
-          name === "description" ? value.substring(0, 350) : value;
+          name === "description" ? value.substring(0, 300) : value;
 
         // Para outros campos de entrada, armazene o valor normalmente
         return {
@@ -237,7 +237,7 @@ function AddProdForm() {
   const remainingCharactersTitle = 40 - formData.title.length;
 
   // Contabilizar os caracteres digitados da descrição
-  const remainingCharactersDescription = 350 - formData.description.length;
+  const remainingCharactersDescription = 300 - formData.description.length;
 
   return (
     <>
@@ -328,7 +328,7 @@ function AddProdForm() {
               rows={5}
               value={formData.description}
               onChange={handleInputChange}
-              className="w-full border-b-[3px] border-gray-400 rounded-lg shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
+              className="w-full border-b-[3px] border-gray-400 break-words rounded-lg shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
               placeholder="Descrição do produto"
               required
             ></textarea>

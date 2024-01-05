@@ -105,9 +105,9 @@ function ShowFormEdit({
       if (name === "title" && value.length > 40) {
         return;
       }
-      // Verifica se o campo é descrição e limita a 350 caracteres
-      if (name === "description" && value.length > 350) {
-        return; // Não atualiza o estado se exceder 350 caracteres
+      // Verifica se o campo é descrição e limita a 300 caracteres
+      if (name === "description" && value.length > 300) {
+        return; // Não atualiza o estado se exceder 300 caracteres
       }
       // Se o campo for de preço ou promoção, verifique se o valor é um número
       setEditedProduct((prevData) => {
@@ -121,7 +121,7 @@ function ShowFormEdit({
 
         // Verifica o comprimento atual da descrição
         const updatedDescription =
-          name === "description" ? value.substring(0, 350) : value;
+          name === "description" ? value.substring(0, 300) : value;
 
         // Para outros campos de entrada, armazene o valor normalmente
         return {
@@ -253,7 +253,7 @@ function ShowFormEdit({
   const remainingCharactersTitle = 40 - editedProduct.title.length;
 
   // Contabilizar os caracteres digitados da descrição
-  const remainingCharactersDescription = 350 - editedProduct.description.length;
+  const remainingCharactersDescription = 300 - editedProduct.description.length;
 
   return (
     <>
@@ -284,7 +284,7 @@ function ShowFormEdit({
           handleClearForm={handleClearFile}
         />
       )}
-      <article className="absolute w-[100%] h-[100%] flex-col inset-1 flex items-center justify-center z-[55] bg-white pt-[16rem]">
+      <article className="absolute w-full h-[150%] flex-col inset-[0] flex items-center justify-center z-[55] bg-white">
         <article className="w-[50%] max-[1024px]:w-[80%] max-[1024px]:ml-[30%] max-[855px]:ml-[0] flex flex-col items-start gap-4 mt-10 mb-10">
           <h2 className="text-6xl max-[420px]:text-4xl font-bold uppercase drop-shadow-xl">
             Editar produto

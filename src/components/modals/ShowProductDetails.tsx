@@ -90,7 +90,7 @@ const ShowProductDetails = ({
   return (
     <>
       <div className={`inset-0 fixed flex items-center justify-center z-[60]`}>
-        <article className="relative flex flex-col items-center justify-center w-[650px] max-[1110px]:w-[580px] max-[680px]:w-[400px] max-[480px]:w-[320px] h-[580px] max-[480px]:h-[560px] text-start bg-white rounded-[4px] drop-shadow-xl border-[0.5px] border-neutral-200">
+        <article className="relative flex flex-col items-center justify-center w-[650px] max-[1110px]:w-[580px] max-[680px]:w-[400px] max-[480px]:w-[320px] h-[580px] max-[480px]:h-[540px] text-start bg-white rounded-[4px] drop-shadow-xl border-[0.5px] border-neutral-200">
           {/*Botão para fechar o modal*/}
           <button
             onClick={() => {
@@ -110,18 +110,18 @@ const ShowProductDetails = ({
             />
           </div>
           {/*Descrições*/}
-          <div className="w-[100%] h-[100%] flex flex-col justify-between p-3 rounded-[0px_0px_4px_4px] bg-gradient-to-r from-[#fe902216] to-orange-100">
-            <div className="flex flex-col gap-2">
+          <div className="w-[100%] h-[100%] flex flex-col justify-between px-3 py-1 rounded-[0px_0px_4px_4px] bg-gradient-to-r from-[#fe902216] to-orange-100">
+            <div className="flex flex-col">
               {/*Título*/}
-              <h2 className="text-2xl font-semibold break-words">
+              <h2 className="text-xl font-semibold break-words">
                 {capitalizedTitle}
               </h2>
               {/*Categoria*/}
-              <h3 className="text-sm text-[#757575] max-[680px]:text-xs">
+              <h3 className="text-sm text-[#757575] max-[680px]:text-xs max-[680px]:hidden">
                 Categoria: {capitalizedCategory}
               </h3>
               {/*Descricão*/}
-              <p className="w-[100%] text-justify text-md max-[680px]:text-sm">
+              <p className="w-[100%] text-justify text-sm max-[680px]:text-[0.75rem] break-words">
                 {capitalizedDescription}
               </p>
             </div>
@@ -150,22 +150,28 @@ const ShowProductDetails = ({
                   </p>
                 )}
               </div>
-              {/*Contatos*/}
-              <div className="flex gap-1 items-end max-[480px]:justify-center">
-                <Link
-                  href={wppLink}
-                  target="_blank"
-                  className="h-[40px] w-[40px] font-semibold rounded-lg flex items-center justify-center bg-gradient-to-r hover:bg-white from-[#FE9022] hover:from-[#fe902200] to-orange-500 hover:to-orange-0 text-white hover:text-black cursor-pointer transition-colors ease-in-out duration-[800ms] shadow-[0px_0px_9px_1px_#1b191929]"
-                >
-                  <FaWhatsapp size={25} />
-                </Link>
-                <Link
-                  href={facebookLink}
-                  target="_blank"
-                  className="h-[40px] w-[40px] font-semibold rounded-lg flex items-center justify-center bg-gradient-to-r hover:bg-white from-[#FE9022] hover:from-[#fe902200] to-orange-500 hover:to-orange-0 text-white hover:text-black cursor-pointer transition-colors ease-in-out duration-[800ms] shadow-[0px_0px_9px_1px_#1b191929]"
-                >
-                  <FaFacebook size={25} />
-                </Link>
+              <div className="flex justify-between items-center">
+                {/*Categoria*/}
+                <h3 className="text-sm text-[#757575] max-[680px]:text-xs min-[680px]:flex">
+                  Categoria: {capitalizedCategory}
+                </h3>
+                {/*Contatos*/}
+                <div className="flex gap-1 items-end max-[480px]:justify-center">
+                  <Link
+                    href={wppLink}
+                    target="_blank"
+                    className="h-[40px] w-[40px] font-semibold rounded-lg flex items-center justify-center bg-gradient-to-r hover:bg-white from-[#FE9022] hover:from-[#fe902200] to-orange-500 hover:to-orange-0 text-white hover:text-black cursor-pointer transition-colors ease-in-out duration-[800ms] shadow-[0px_0px_9px_1px_#1b191929]"
+                  >
+                    <FaWhatsapp size={25} />
+                  </Link>
+                  <Link
+                    href={facebookLink}
+                    target="_blank"
+                    className="h-[40px] w-[40px] font-semibold rounded-lg flex items-center justify-center bg-gradient-to-r hover:bg-white from-[#FE9022] hover:from-[#fe902200] to-orange-500 hover:to-orange-0 text-white hover:text-black cursor-pointer transition-colors ease-in-out duration-[800ms] shadow-[0px_0px_9px_1px_#1b191929]"
+                  >
+                    <FaFacebook size={25} />
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
