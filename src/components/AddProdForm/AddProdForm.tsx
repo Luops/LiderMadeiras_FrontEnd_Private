@@ -405,7 +405,6 @@ function AddProdForm() {
                 value={formData.unity}
                 onChange={handleInputChange}
                 className="w-full flex items-center gap-3 rounded-lg text-[rgba(0,0,0,0.5)] shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 border-b-[3px] border-gray-400 focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
-                required
               >
                 <option value="">Unidade</option>
                 {unitys.map((unity) => (
