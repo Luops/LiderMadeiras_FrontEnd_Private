@@ -49,7 +49,7 @@ const SectionProducts: React.FC<ListProductsProps> = ({ productsParam }) => {
   const toggleCategoriesBar = () => {
     setCategoriesMobile(!categoriesMobile);
   };
-
+  
   // Função para buscar produtos com base nas categorias e na opção de promoção
   const fetchProducts = async () => {
     try {
@@ -83,7 +83,7 @@ const SectionProducts: React.FC<ListProductsProps> = ({ productsParam }) => {
     // Configurar o intervalo para atualização a cada 10 minutos
     const interval = setInterval(() => {
       fetchProducts(); // Chamar a função fetchProducts a cada 10 minutos
-    }, 5 * 60 * 1000); // 5 minutos em milissegundos
+    }, 1 * 60 * 1000); // 5 minutos em milissegundos
 
     // Limpar o intervalo quando o componente for desmontado ou atualizado
     return () => clearInterval(interval);
@@ -360,5 +360,32 @@ const SectionProducts: React.FC<ListProductsProps> = ({ productsParam }) => {
     </section>
   );
 };
+
+export async function getStaticProps() {
+  try {
+    // Busca os produtos da API durante a construção da página
+    const productsData = await getProductsByCategory({
+      category: "all",
+      isPromotion: "false", // ou "true" se for necessário
+    });
+
+    const products = productsData || [];
+
+    return {
+      props: {
+        products,
+      },
+      revalidate: 60 * 5, // Revalida a cada 5 minutos
+    };
+  } catch (error) {
+    console.error("Erro ao buscar produtos:", error);
+    return {
+      props: {
+        products: [],
+      },
+      revalidate: 60 * 5, // Revalida a cada 5 minutos mesmo em caso de erro
+    };
+  }
+}
 
 export default SectionProducts;
