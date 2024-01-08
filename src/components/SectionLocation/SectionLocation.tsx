@@ -54,8 +54,7 @@ function SectionLocation({}: Props) {
               <h3 className="text-2xl font-bold">Entregas</h3>
             </div>
             <p className="text-gray-700 text-center">
-              Descreva as áreas e regiões onde a empresa realiza entregas,
-              juntamente com informações relevantes sobre o processo de entrega.
+              Consulte valores e prazos de entrega da sua região.
             </p>
           </motion.div>
           {/*Horario de Funcionamento*/}

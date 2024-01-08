@@ -84,6 +84,16 @@ export const categories = [
     name: "Vista de 7cm",
     value: "vista_de_7cm",
   },
+  {
+    id: 18,
+    name: "Casa de Madeira",
+    value: "casa_de_madeira",
+  },
+  {
+    id: 19,
+    name: "Casa de Alvenaria",
+    value: "casa_de_alvenaria",
+  }
 ];
 
 export const unitys = [

@@ -83,7 +83,7 @@ const SectionProducts: React.FC<ListProductsProps> = ({ productsParam }) => {
     // Configurar o intervalo para atualização a cada 10 minutos
     const interval = setInterval(() => {
       fetchProducts(); // Chamar a função fetchProducts a cada 10 minutos
-    }, 1 * 60 * 1000); // 5 minutos em milissegundos
+    }, 5 * 60 * 1000); // 5 minutos em milissegundos
 
     // Limpar o intervalo quando o componente for desmontado ou atualizado
     return () => clearInterval(interval);
