@@ -31,7 +31,7 @@ type ListProductsProps = {
   productsParam: Product[]; // Defina o tipo de products como um array de Product
 };
 
-const SectionProducts: React.FC<ListProductsProps> = ({ productsParam } ) => {
+const SectionProducts: React.FC<ListProductsProps> = ({ productsParam }) => {
   // State para selecionar o input de promoção
   const [showPromotion, setShowPromotion] = React.useState(false);
 
@@ -80,6 +80,13 @@ const SectionProducts: React.FC<ListProductsProps> = ({ productsParam } ) => {
   // Chamada à API ao montar o componente para buscar produtos padrão
   React.useEffect(() => {
     fetchProducts();
+    // Configurar o intervalo para atualização a cada 10 minutos
+    const interval = setInterval(() => {
+      fetchProducts(); // Chamar a função fetchProducts a cada 10 minutos
+    }, 5 * 60 * 1000); // 5 minutos em milissegundos
+
+    // Limpar o intervalo quando o componente for desmontado ou atualizado
+    return () => clearInterval(interval);
   }, []); // Executa apenas uma vez ao montar o componente
 
   // Função para manipular a seleção/desseleção das categorias
@@ -221,7 +228,10 @@ const SectionProducts: React.FC<ListProductsProps> = ({ productsParam } ) => {
   }, []);
 
   return (
-    <section id="produtos" className="relative w-[87%] max-[940px]:w-[93%] max-[869px]:w-full flex max-[869px]:flex-col items-start justify-between max-[869px]:mb-24">
+    <section
+      id="produtos"
+      className="relative w-[87%] max-[940px]:w-[93%] max-[869px]:w-full flex max-[869px]:flex-col items-start justify-between max-[869px]:mb-24"
+    >
       {/*Container do botão de filtros em mobile (<= 869px) */}
       <div className="w-full flex z-[41] items-center justify-center min-[870px]:hidden mb-5 pb-2 border-b">
         <button
@@ -311,7 +321,7 @@ const SectionProducts: React.FC<ListProductsProps> = ({ productsParam } ) => {
           {/*Categorias (promoção ou não) */}
           <div className="flex flex-col mt-5">
             <h3 className="text-lg font-inder font-bold">Categoria</h3>
-            {categories.map((category:any) => (
+            {categories.map((category: any) => (
               <label key={category} className="flex items-center mt-3">
                 <input
                   type="checkbox"
@@ -349,6 +359,6 @@ const SectionProducts: React.FC<ListProductsProps> = ({ productsParam } ) => {
       </div>
     </section>
   );
-}
+};
 
 export default SectionProducts;

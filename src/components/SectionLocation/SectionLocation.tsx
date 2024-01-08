@@ -29,11 +29,11 @@ function SectionLocation({}: Props) {
             transition={{ duration: 1 }}
             className="flex flex-col justify-start items-center bg-white rounded-lg p-6 shadow-md"
           >
-            <div className="flex gap-2 items-center justify-center mb-4">
-              <i>
+            <div className="relative flex gap-2 items-center justify-center mb-4">
+              <i className="max-[374px]:absolute max-[374px]:left-[-30px] max-[340px]:left-[40px] max-[340px]:top-[0px]">
                 <FaLocationDot size={25} />
               </i>
-              <h3 className="text-2xl font-bold">Nossa Localização</h3>
+              <h3 className="text-2xl font-bold text-center">Nossa Localização</h3>
             </div>
             <p className="text-gray-700 text-center">
               A Lider Madeiras encontra-se no endereço RS-020, 3919 - Neópolis,
@@ -89,7 +89,7 @@ function SectionLocation({}: Props) {
             className={`md:hidden lg:block col-span-1 lg:col-span-2 2xl:col-span-1 bg-white rounded-lg p-6 max-[968px]:px-4 shadow-md`}
           >
             <div className="relative flex gap-2 items-center justify-center mb-4 max-[466px]:text-center">
-              <i className="max-[466px]:absolute max-[466px]:z-1 max-[466px]:left-[70px] max-[418px]:left-[45px] max-[466px]:bottom-9">
+              <i className="max-[466px]:absolute max-[466px]:z-1 max-[466px]:left-[70px] max-[418px]:left-[45px] max-[466px]:bottom-9 max-[360px]:left-[35px]">
                 <GoClockFill size={25} />
               </i>
               <h3 className="text-2xl font-bold max-[466px]:w-2/3">

@@ -48,7 +48,7 @@ function SectionBannerPromo() {
           <Image
             src={ImageTwoBanner}
             alt="Banner"
-            className="absolute w-[200px] max-[1152px]:w-[150px] max-[869px]:w-[220px] max-[700px]:w-[190px] max-[480px]:w-[150px] h-[150px] max-[1152px]:h-[100px] max-[869px]:h-[180px] max-[700px]:h-[140px] max-[480px]:h-[120px] aspect-auto drop-shadow-2xl rotate-180 right-[-70px] mb-2 max-[869px]:mb-5"
+            className="absolute w-[200px] max-[1152px]:w-[150px] max-[869px]:w-[220px] max-[700px]:w-[190px] max-[480px]:w-[150px] h-[150px] max-[1152px]:h-[100px] max-[869px]:h-[180px] max-[700px]:h-[140px] max-[480px]:h-[120px] aspect-auto drop-shadow-2xl rotate-180 right-[-70px] max-[380px]:right-[-50px] mb-2 max-[869px]:mb-5"
           />
         </div>
       )}
