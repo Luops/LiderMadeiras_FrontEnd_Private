@@ -125,7 +125,7 @@ const ShowProductDetails = ({
                 {capitalizedDescription}
               </p>
             </div>
-            <div className="w-full flex max-[480px]:flex-col justify-between max-[480px]:pb-1">
+            <div className="w-full flex max-[680px]:flex-col justify-between max-[480px]:pb-1">
               {/*Precos*/}
               <div>
                 {isPromotion ? (
@@ -150,13 +150,8 @@ const ShowProductDetails = ({
                   </p>
                 )}
               </div>
-              <div className="flex justify-between items-center">
-                {/*Categoria*/}
-                <h3 className="text-sm text-[#757575] max-[680px]:text-xs min-[680px]:flex">
-                  Categoria: {capitalizedCategory}
-                </h3>
                 {/*Contatos*/}
-                <div className="flex gap-1 items-end max-[480px]:justify-center">
+                <div className="flex gap-1 items-end max-[680px]:justify-center">
                   <Link
                     href={wppLink}
                     target="_blank"
@@ -172,7 +167,6 @@ const ShowProductDetails = ({
                     <FaFacebook size={25} />
                   </Link>
                 </div>
-              </div>
             </div>
           </div>
         </article>

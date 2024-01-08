@@ -99,16 +99,21 @@ export const categories = [
 export const unitys = [
   {
     id: 1,
+    name: "Sem unidade",
+    value: "",
+  },
+  {
+    id: 2,
     name: "Por unidade",
     value: "unidade",
   },
   {
-    id: 2,
+    id: 3,
     name: "Por metro",
     value: "m",
   },
   {
-    id: 3,
+    id: 4,
     name: "Por metro quadrado",
     value: "m2",
   },
