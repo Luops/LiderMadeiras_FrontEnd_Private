@@ -142,31 +142,39 @@ const ShowProductDetails = ({
                     </p>
                   </div>
                 ) : (
-                  <p className="text-4xl max-[680px]:text-3xl font-bold bg-gradient-to-r from-[#FE9022] to-orange-500 bg-clip-text text-transparent">
-                    R$ {formattedPrice}{" "}
-                    <span className="text-[1rem] min-[480px]:text-2xl">
-                      {unityTransformed}
-                    </span>
-                  </p>
+                  <>
+                    {price === "Consultar" ? (
+                      <p className="text-4xl max-[680px]:text-3xl font-bold bg-gradient-to-r from-[#FE9022] to-orange-500 bg-clip-text text-transparent">
+                        {price}
+                      </p>
+                    ) : (
+                      <p className="text-4xl max-[680px]:text-3xl font-bold bg-gradient-to-r from-[#FE9022] to-orange-500 bg-clip-text text-transparent">
+                        R$ {formattedPrice}{" "}
+                        <span className="text-[1rem] min-[480px]:text-2xl">
+                          {unityTransformed}
+                        </span>
+                      </p>
+                    )}
+                  </>
                 )}
               </div>
-                {/*Contatos*/}
-                <div className="flex gap-1 items-end max-[680px]:justify-center">
-                  <Link
-                    href={wppLink}
-                    target="_blank"
-                    className="h-[40px] w-[40px] font-semibold rounded-lg flex items-center justify-center bg-gradient-to-r hover:bg-white from-[#FE9022] hover:from-[#fe902200] to-orange-500 hover:to-orange-0 text-white hover:text-black cursor-pointer transition-colors ease-in-out duration-[800ms] shadow-[0px_0px_9px_1px_#1b191929]"
-                  >
-                    <FaWhatsapp size={25} />
-                  </Link>
-                  <Link
-                    href={facebookLink}
-                    target="_blank"
-                    className="h-[40px] w-[40px] font-semibold rounded-lg flex items-center justify-center bg-gradient-to-r hover:bg-white from-[#FE9022] hover:from-[#fe902200] to-orange-500 hover:to-orange-0 text-white hover:text-black cursor-pointer transition-colors ease-in-out duration-[800ms] shadow-[0px_0px_9px_1px_#1b191929]"
-                  >
-                    <FaFacebook size={25} />
-                  </Link>
-                </div>
+              {/*Contatos*/}
+              <div className="flex gap-1 items-end max-[680px]:justify-center">
+                <Link
+                  href={wppLink}
+                  target="_blank"
+                  className="h-[40px] w-[40px] font-semibold rounded-lg flex items-center justify-center bg-gradient-to-r hover:bg-white from-[#FE9022] hover:from-[#fe902200] to-orange-500 hover:to-orange-0 text-white hover:text-black cursor-pointer transition-colors ease-in-out duration-[800ms] shadow-[0px_0px_9px_1px_#1b191929]"
+                >
+                  <FaWhatsapp size={25} />
+                </Link>
+                <Link
+                  href={facebookLink}
+                  target="_blank"
+                  className="h-[40px] w-[40px] font-semibold rounded-lg flex items-center justify-center bg-gradient-to-r hover:bg-white from-[#FE9022] hover:from-[#fe902200] to-orange-500 hover:to-orange-0 text-white hover:text-black cursor-pointer transition-colors ease-in-out duration-[800ms] shadow-[0px_0px_9px_1px_#1b191929]"
+                >
+                  <FaFacebook size={25} />
+                </Link>
+              </div>
             </div>
           </div>
         </article>
