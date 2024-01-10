@@ -111,9 +111,15 @@ const ProductComponent = ({
             </p>
           </div>
         ) : (
-          <p className="mt-3 text-center text-lg font-bold drop-shadow-lg bg-gradient-to-r from-[#FE9022] to-orange-500 bg-clip-text text-transparent">
-            R$ {formattedPrice}
-          </p>
+          <>
+            {price === "Consultar" ? (
+              <p className="mt-3 text-center text-lg font-bold drop-shadow-lg bg-gradient-to-r from-[#FE9022] to-orange-500 bg-clip-text text-transparent">{price}</p>
+            ) : (
+              <p className="mt-3 text-center text-lg font-bold drop-shadow-lg bg-gradient-to-r from-[#FE9022] to-orange-500 bg-clip-text text-transparent">
+                R$ {formattedPrice}
+              </p>
+            )}
+          </>
         )}
         <button
           onClick={() => setShowDetails(true)}
