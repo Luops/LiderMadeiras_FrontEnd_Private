@@ -17,7 +17,7 @@ type Product = {
   _id: string;
   title: string;
   description: string;
-  price: string;
+  price: string | "Consultar";
   category: string;
   unity: string;
   isPromotion: boolean;
@@ -72,7 +72,11 @@ function ShowFormEdit({
   const [submitAttempted, setSubmitAttempted] = React.useState(false);
 
   // Condição de validação dos inputs
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value, files, type, checked }: any = e.target;
 
     if (type === "checkbox") {
@@ -111,6 +115,16 @@ function ShowFormEdit({
       }
       // Se o campo for de preço ou promoção, verifique se o valor é um número
       setEditedProduct((prevData) => {
+        if (
+          (name === "price" || name === "promoPrice") &&
+          value === "Consultar"
+        ) {
+          return {
+            ...prevData,
+            [name]: value, // Permitir que "Consultar" seja atribuído diretamente ao preço
+          };
+        }
+
         if (
           (name === "price" || name === "promoPrice") &&
           !/^\d*(\.|\,)?\d*$/.test(value)
@@ -280,8 +294,10 @@ function ShowFormEdit({
       {/* Se for apertado o botão de enviar, mostre o modal de sucesso */}
       {submitAttempted && (
         <ShowSuccessForm
-          setShowSuccessModal={setShowSuccessModal}m run dev
-          
+          setShowSuccessModal={setShowSuccessModal}
+          m
+          run
+          dev
           handleClearForm={handleClearFile}
         />
       )}
@@ -357,7 +373,7 @@ function ShowFormEdit({
                 type="text"
                 name="price"
                 id="price"
-                value={editedProduct.price}
+                value={editedProduct.price === "Consultar" ? "Consultar" : editedProduct.price}
                 onChange={handleInputChange}
                 className="w-full flex items-center border-b-[3px] border-gray-400 rounded-lg shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
                 placeholder="Preço"

@@ -15,7 +15,7 @@ import ShowImageForm from "../modals/ShowImageForm";
 type FormData = {
   title: string;
   description: string;
-  price: string;
+  price: string | "Consultar";
   category: string;
   unity: string;
   isPromotion: boolean;
@@ -141,6 +141,16 @@ function AddProdForm() {
 
       // Se o campo for de preço ou promoção, verifique se o valor é um número
       setFormData((prevData) => {
+        if (
+          (name === "price" || name === "promoPrice") &&
+          value === "Consultar"
+        ) {
+          return {
+            ...prevData,
+            [name]: value, // Permitir que "Consultar" seja atribuído diretamente ao preço
+          };
+        }
+
         if (
           (name === "price" || name === "promoPrice") &&
           !/^\d*(\.|\,)?\d*$/.test(value)
@@ -342,7 +352,7 @@ function AddProdForm() {
                 type="text"
                 name="price"
                 id="price"
-                value={formData.price}
+                value={formData.price === "Consultar" ? "Consultar" : formData.price}
                 onChange={handleInputChange}
                 className="w-full flex items-center border-b-[3px] border-gray-400 rounded-lg shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
                 placeholder="Preço"
