@@ -124,14 +124,14 @@ function ShowFormEdit({
             [name]: value, // Permitir que "Consultar" seja atribuído diretamente ao preço
           };
         }
-
+        /*
         if (
           (name === "price" || name === "promoPrice") &&
           !/^\d*(\.|\,)?\d*$/.test(value)
         ) {
           // Se o valor não for um número com ponto opcional, não atualize o estado
           return prevData;
-        }
+        }*/
 
         // Verifica o comprimento atual da descrição
         const updatedDescription =
@@ -373,7 +373,11 @@ function ShowFormEdit({
                 type="text"
                 name="price"
                 id="price"
-                value={editedProduct.price === "Consultar" ? "Consultar" : editedProduct.price}
+                value={
+                  editedProduct.price === "Consultar"
+                    ? "Consultar"
+                    : editedProduct.price
+                }
                 onChange={handleInputChange}
                 className="w-full flex items-center border-b-[3px] border-gray-400 rounded-lg shadow-[5px_3px_15px_-4px_rgba(0,0,0,0.59)] py-3 px-1 placeholder:text-[rgba(0,0,0,0.5)] focus:outline-0 focus:border-[#FE9022] ease-in-out duration-500"
                 placeholder="Preço"

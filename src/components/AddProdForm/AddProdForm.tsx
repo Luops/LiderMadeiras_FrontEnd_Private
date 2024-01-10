@@ -150,14 +150,14 @@ function AddProdForm() {
             [name]: value, // Permitir que "Consultar" seja atribuído diretamente ao preço
           };
         }
-
+        /*
         if (
           (name === "price" || name === "promoPrice") &&
           !/^\d*(\.|\,)?\d*$/.test(value)
         ) {
           // Se o valor não for um número com ponto opcional, não atualize o estado
           return prevData;
-        }
+        }*/
 
         // Verifica o comprimento atual da descrição
         const updatedDescription =
