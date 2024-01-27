@@ -134,9 +134,9 @@ function AddProdForm() {
         return;
       }
 
-      // Verifica se o campo é descrição e limita a 300 caracteres
-      if (name === "description" && value.length > 300) {
-        return; // Não atualiza o estado se exceder 300 caracteres
+      // Verifica se o campo é descrição e limita a 340 caracteres
+      if (name === "description" && value.length > 340) {
+        return; // Não atualiza o estado se exceder 340 caracteres
       }
 
       // Se o campo for de preço ou promoção, verifique se o valor é um número
@@ -161,7 +161,7 @@ function AddProdForm() {
 
         // Verifica o comprimento atual da descrição
         const updatedDescription =
-          name === "description" ? value.substring(0, 300) : value;
+          name === "description" ? value.substring(0, 340) : value;
 
         // Para outros campos de entrada, armazene o valor normalmente
         return {
@@ -247,7 +247,7 @@ function AddProdForm() {
   const remainingCharactersTitle = 40 - formData.title.length;
 
   // Contabilizar os caracteres digitados da descrição
-  const remainingCharactersDescription = 300 - formData.description.length;
+  const remainingCharactersDescription = 340 - formData.description.length;
 
   return (
     <>
