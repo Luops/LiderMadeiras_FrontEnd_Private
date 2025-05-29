@@ -20,7 +20,7 @@ const PrivateRoute = ({ children }: PrivateRouteProps) => {
   const { user }: any = React.useContext(UserContext);
 
   React.useEffect(() => {
-    if (pathName === "/dashboard") {
+    if (pathName === "/dashboard" || pathName === "/dashboard/") {
       if (user && user.role !== undefined && user.role >= 1) {
         // Verifique se 'user' está definido e se 'role' é necessário
         router.push("/dashboard"); // Redirecione para a página do Dashboard se estiver autenticado

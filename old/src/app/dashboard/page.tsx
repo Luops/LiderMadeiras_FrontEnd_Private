@@ -38,24 +38,20 @@ export default function Dashboard() {
 
   return (
     <>
-      <PrivateRoute>
-        <main className="w-full h-screen flex">
-          <AsideDash setActiveSection={setActiveSection} />
-          <article className="flex-1 flex flex-col items-center">
-            {/* Conteudo da pagina */}
-            {typeof window !== 'undefined' && (
-              <>
-                {activeSection === "produtos" && (
-                  <ListProducts productsParam={{ ...products }} />
-                )}
-                {activeSection !== "produtos" && (
-                  <AddProdForm />
-                )}
-              </>
-            )}
-          </article>
-        </main>
-      </PrivateRoute>
+      <main className="w-full h-screen flex">
+        <AsideDash setActiveSection={setActiveSection} />
+        <article className="flex-1 flex flex-col items-center">
+          {/* Conteudo da pagina */}
+          {typeof window !== "undefined" && (
+            <>
+              {activeSection === "produtos" && (
+                <ListProducts productsParam={{ ...products }} />
+              )}
+              {activeSection !== "produtos" && <AddProdForm />}
+            </>
+          )}
+        </article>
+      </main>
     </>
   );
 }

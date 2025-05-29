@@ -1,29 +1,27 @@
-// CSS
+"use client";
+
+import type { Metadata } from "next";
 import "./globals.css";
+import Head from "./head";
+
+import { AuthProvider } from "../context/AuthContext";
 
 // Components
-import Head from "./head";
-import Footer from "@/components/Footer/Footer";
-import Header from "@/components/Header/Header";
-
-// Provider
-import { Providers } from "../store/provider";
-import { Provider } from "react-redux";
+import { Header } from "../components/header";
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html lang="pt-br">
       <Head />
-      <body className="h-screen flex flex-col items-center justify-between bg-gradient-to-r from-[#fe902203] to-orange-50 font-mont">
-        <Providers>
+      <body>
+        <AuthProvider>
           <Header />
           {children}
-          <Footer />
-        </Providers>
+        </AuthProvider>
       </body>
     </html>
   );
