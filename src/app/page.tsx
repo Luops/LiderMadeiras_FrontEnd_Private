@@ -255,7 +255,7 @@ export default function Home() {
                   <div>
                     <h3 className="font-medium">Horário de Funcionamento</h3>
                     <p className="text-muted-foreground">
-                      Segunda a Sexta: 8h30 às 18h | Sábado: 9h às 16h
+                      Segunda a Sexta: 8h30 às 18h | Sábado: 9h às 14h
                     </p>
                   </div>
                 </div>
