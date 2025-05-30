@@ -1,19 +1,28 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
+import { supabase } from "../../../lib/supabaseClient";
 
 export async function GET() {
-  const uploadsDir = path.join(process.cwd(), "public", "uploads");
-
   try {
-    const files = fs.readdirSync(uploadsDir);
-    const images = files.map((file) => ({
-      name: file,
-      url: `/uploads/${file}`,
+    // Lista arquivos no bucket uploads
+    const { data, error } = await supabase.storage.from("uploadslider").list("", {
+      limit: 100,
+      offset: 0,
+      sortBy: { column: "name", order: "asc" },
+    });
+
+    if (error) {
+      console.error("Erro ao listar imagens:", error);
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    // Mapeia para formato esperado pelo frontend
+    const images = data.map((file) => ({
+      name: file.name,
+      url: supabase.storage.from("uploadslider").getPublicUrl(`${file.name}`).data.publicUrl,
     }));
 
     return NextResponse.json(images);
-  } catch (error) {
-    return NextResponse.json({ error: "Erro ao listar imagens." }, { status: 500 });
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

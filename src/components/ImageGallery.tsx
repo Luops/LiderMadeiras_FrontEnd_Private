@@ -58,7 +58,7 @@ export default function ImageGallery({
     <div className="p-4">
       <h2 className="text-xl font-bold mb-4">Imagens Enviadas</h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {images.map((img) => (
+        {Array.isArray(images) && images.map((img) => (
           <div key={img.name} className="relative border rounded shadow p-2">
             <img
               src={img.url}
