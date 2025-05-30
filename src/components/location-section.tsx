@@ -49,7 +49,7 @@ export function LocationSection() {
                 </h3>
                 <div className="mt-2 grid gap-1 text-muted-foreground">
                   <p>Segunda a Sexta: 8h30 às 18h</p>
-                  <p>Sábado: 9h às 16h</p>
+                  <p>Sábado: 9h às 14h</p>
                   <p>Domingo: Fechado</p>
                 </div>
               </div>
