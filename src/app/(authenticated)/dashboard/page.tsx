@@ -2,6 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 // Context
 import { useAuth } from "../../../context/AuthContext";
@@ -9,19 +10,25 @@ import { useAuth } from "../../../context/AuthContext";
 // Components
 import { DashboardAside } from "../../../components/DashboardAside";
 import ImageGallery from "@/src/components/ImageGallery";
-import ImageManager from "@/src/components/ImageManager";
 
 function Dashboard() {
   const [refreshFlag, setRefreshFlag] = React.useState(false);
 
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
+  const router = useRouter();
 
-  const refreshImages = () => {
-    setRefreshFlag((f) => !f);
-  };
-
-  if (!user) {
-    redirect("/");
+  React.useEffect(() => {
+    if (!loading && !user) {
+      router.push("/"); // redireciona para a home apenas se carregou e não tem user
+    }
+  }, [user, loading]);
+  if (loading) {
+    return (
+      <div className="w-full h-screen flex flex-col items-center justify-center">
+        <p className="text-center font-bold uppercase">Carregando...</p>
+        <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
   }
   return (
     <main className="flex min-h-screen">

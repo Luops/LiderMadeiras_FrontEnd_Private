@@ -11,7 +11,7 @@ function UploadImage({ onUploadSuccess }: { onUploadSuccess?: () => void }) {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [uploadUrl, setUploadUrl] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
-  
+
   const { setNotifyUpdate } = useImageStore();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,6 +24,8 @@ function UploadImage({ onUploadSuccess }: { onUploadSuccess?: () => void }) {
 
   const handleUpload = async () => {
     if (!file) return;
+
+    setIsUploading(true);
 
     const formData = new FormData();
     formData.append("file", file);
@@ -39,6 +41,7 @@ function UploadImage({ onUploadSuccess }: { onUploadSuccess?: () => void }) {
       if (data.imageUrl) {
         setUploadUrl(data.imageUrl);
         useImageStore.getState().setNotifyUpdate(true); // dispara atualização global
+        if (onUploadSuccess) onUploadSuccess();
       }
     } catch (err) {
       console.error("Erro ao fazer upload:", err);
@@ -69,12 +72,14 @@ function UploadImage({ onUploadSuccess }: { onUploadSuccess?: () => void }) {
       </button>
 
       {uploadUrl && (
-        <p className="mt-4 text-green-600">
-          Imagem enviada para:{" "}
+        <div className="text-center">
+          <p className="mt-4 text-green-600 uppercase">
+            Imagem enviada com sucesso!
+          </p>
           <a href={uploadUrl} className="underline" target="_blank">
-            {uploadUrl}
+            Ir para a imagem
           </a>
-        </p>
+        </div>
       )}
     </div>
   );

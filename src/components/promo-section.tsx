@@ -101,7 +101,7 @@ function PromoSection() {
               )}
             </div>
 
-            <div>
+            <div className="sm:col-span-2">
               <Input
                 placeholder="Seu telefone"
                 type="tel"

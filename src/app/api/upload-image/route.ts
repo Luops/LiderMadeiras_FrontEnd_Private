@@ -41,7 +41,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json({ data });
+    const publicUrl = supabase.storage
+      .from("uploadslider")
+      .getPublicUrl(fileName).data.publicUrl;
+    return NextResponse.json({ imageUrl: publicUrl });
   } catch (error) {
     console.error("Erro inesperado no upload:", error);
     return NextResponse.json(

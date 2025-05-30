@@ -56,38 +56,39 @@ export default function ImageGallery({
 
   return (
     <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">Imagens Enviadas</h2>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {Array.isArray(images) && images.map((img) => (
-          <div key={img.name} className="relative border rounded shadow p-2">
-            <img
-              src={img.url}
-              alt={img.name}
-              className="w-full h-40 object-cover rounded"
-            />
-            <p className="text-sm text-center mt-2 truncate">{img.name}</p>
-            <button
-              onClick={() => handleDelete(img.name)}
-              className="absolute top-2 right-2 text-red-600 bg-white hover:text-red-800 transition ease-in-out duration-200 px-2 py-1 rounded border"
-              title="Deletar imagem"
-            >
-              <Trash2 className="w-5 h-5" />
-            </button>
-            {/* Botão de copiar URL */}
-            <button
-              onClick={() => {
-                navigator.clipboard.writeText(img.url);
-                alert("URL copiada!");
-              }}
-              className="absolute top-2 left-2"
-              title="Copiar URL"
-            >
-              <i className="flex items-center justify-center bg-orange-600 hover:bg-orange-400 transition-all ease-in-out duration-200 rounded px-2 py-1 border">
-                <ClipboardCopy className="w-5 h-5 text-white" />
-              </i>
-            </button>
-          </div>
-        ))}
+      <h2 className="text-xl font-bold mb-4 mt-5">Imagens Enviadas</h2>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
+        {Array.isArray(images) &&
+          images.map((img) => (
+            <div key={img.name} className="relative border rounded shadow p-2">
+              <img
+                src={img.url}
+                alt={img.name}
+                className="w-full h-40 object-cover rounded"
+              />
+              <p className="text-sm text-center mt-2 truncate">{img.name}</p>
+              <button
+                onClick={() => handleDelete(img.name)}
+                className="absolute top-2 right-2 text-red-600 bg-white hover:text-red-800 transition ease-in-out duration-200 px-2 py-1 rounded border"
+                title="Deletar imagem"
+              >
+                <Trash2 className="w-5 h-5" />
+              </button>
+              {/* Botão de copiar URL */}
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(img.url);
+                  alert("URL copiada!");
+                }}
+                className="absolute top-2 left-2"
+                title="Copiar URL"
+              >
+                <i className="flex items-center justify-center bg-orange-600 hover:bg-orange-400 transition-all ease-in-out duration-200 rounded px-2 py-1 border">
+                  <ClipboardCopy className="w-5 h-5 text-white" />
+                </i>
+              </button>
+            </div>
+          ))}
       </div>
     </div>
   );

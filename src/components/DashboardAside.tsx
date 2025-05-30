@@ -91,7 +91,7 @@ export function DashboardAside() {
       {/* Botão toggle (só em telas < md) */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden fixed top-24 left-4 z-30 bg-amber-400 p-2 rounded-full shadow hover:bg-amber-500 transition"
+        className="md:hidden fixed top-[70px] left-4 z-30 bg-amber-400 p-2 rounded-full shadow hover:bg-amber-500 transition"
       >
         <ChevronRight
           className={`w-5 h-5 transition-transform ${
@@ -123,7 +123,7 @@ export function DashboardAside() {
         <nav className="flex flex-col gap-4 text-sm">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden fixed top-[70px] right-4 z-30 bg-amber-400 px-3 py-1 rounded-full shadow hover:bg-amber-500 transition font-bold"
+            className="md:hidden fixed top-[50px] right-4 z-30  px-4 py-2 rounded-full hover:bg-amber-200 transition font-bold"
           >
             X
           </button>
