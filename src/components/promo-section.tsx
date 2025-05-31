@@ -8,12 +8,15 @@ import { Button } from "../components/ui/button";
 
 const formSchema = z.object({
   name: z.string().min(1, "Nome é obrigatório"),
-  email: z.string().email("E-mail inválido"),
+  email: z.string().optional(),
   phone: z
     .string()
     .min(10, "Telefone deve ter no mínimo 10 dígitos")
     .max(15, "Telefone muito longo")
     .regex(/^\d+$/, "Telefone deve conter apenas números"),
+  city: z.string().min(1, "Cidade é obrigatória"),
+  neighborhood: z.string().min(1, "Bairro é obrigatório"),
+  address: z.string().min(1, "Endereço é obrigatório"),
   receberPromos: z.literal(true, {
     errorMap: () => ({ message: "Você precisa aceitar para continuar" }),
   }),
@@ -87,16 +90,40 @@ function PromoSection() {
                 </p>
               )}
             </div>
-
             <div>
               <Input
-                placeholder="Seu e-mail"
+                placeholder="Seu e-mail (opcional)"
                 type="email"
                 {...register("email")}
               />
               {errors.email && (
                 <p className="text-xs text-red-600 mt-1">
                   {errors.email.message}
+                </p>
+              )}
+            </div>
+            <div>
+              <Input placeholder="Cidade" {...register("city")} />
+              {errors.city && (
+                <p className="text-xs text-red-600 mt-1">
+                  {errors.city.message}
+                </p>
+              )}
+            </div>
+            <div>
+              <Input placeholder="Bairro" {...register("neighborhood")} />
+              {errors.neighborhood && (
+                <p className="text-xs text-red-600 mt-1">
+                  {errors.neighborhood.message}
+                </p>
+              )}
+            </div>
+
+            <div className="sm:col-span-2">
+              <Input placeholder="Rua" {...register("address")} />
+              {errors.address && (
+                <p className="text-xs text-red-600 mt-1">
+                  {errors.address.message}
                 </p>
               )}
             </div>

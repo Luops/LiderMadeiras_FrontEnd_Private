@@ -10,7 +10,7 @@ const supabase = createClient(
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { name, email, phone } = body;
+  const { name, email, phone, city, neighborhood, address } = body;
 
   let numberWithDDDState = phone.trim();
   if (!numberWithDDDState.startsWith("+55")) {
@@ -23,7 +23,8 @@ export async function POST(req: NextRequest) {
 
   let emailLowercase = email.trim().toLowerCase();
 
-  if (!name || !emailLowercase || !numberWithDDDState) {
+  // Validação mínima
+  if (!name || !city || !neighborhood || !address || !numberWithDDDState) {
     return NextResponse.json({ success: false }, { status: 400 });
   }
 
@@ -48,7 +49,16 @@ export async function POST(req: NextRequest) {
   try {
     const { error } = await supabase
       .from("db_usersPromo")
-      .insert([{ name, email: emailLowercase, phone: numberWithDDDState }]);
+      .insert([
+        {
+          name,
+          email: emailLowercase || null,
+          phone: numberWithDDDState,
+          city,
+          neighborhood,
+          address,
+        },
+      ]);
 
     if (error) {
       console.error("Erro ao salvar no Supabase:", error);
